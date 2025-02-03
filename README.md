@@ -18,7 +18,7 @@
 - [Validator Testing](#validator-testing)
 
 ## Project Overview
-To create a website `Code To Protect` for national slavery and human trafficking prevention month. 
+To create a website `Weather To Go`. This will quickly inform the user what they need to know of the weather to come.
 
 [Project Link](https://mathewisherwood.github.io/Mental-Health-Awareness/)
 
