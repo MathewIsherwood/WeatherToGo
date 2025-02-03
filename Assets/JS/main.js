@@ -38,3 +38,24 @@ function getCurrentHourISO() {
 
 const allWeatherHours = getAllWeatherHours(bristolData);
 console.log(getOneWeatherHour(getCurrentHourISO(), allWeatherHours));
+
+
+text-blue-500 // Coldest
+text-cyan-500 // Cold
+text-sky-500 // OK
+text-yellow-500 // Nice
+text-orange-500 // Bit Warm
+text-red-500 // Really Warm
+
+
+function loadingScreen() {
+    const iconDisplayArea = document.getElementById('IconDisplayArea');
+    iconDisplayArea.innerHTML = `
+        <div class="IconDisplayArea bg-white p-6 rounded-lg shadow-lg">
+            <h2>Loading...</h2>
+            <div class="loadingbaby">
+                <img src="Assets/Images/loadingbaby.jpg" alt="Loading...">
+            </div>
+        </div>
+    `;
+}

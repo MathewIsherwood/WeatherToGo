@@ -19,3 +19,19 @@
 .TemperatureBackgroundColourReallyWarm {
     background-color: red;
 }
+
+.TemperatureTextArea{
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.UVIndexTextArea{
+    font-weight: lighter;
+    font-style: italic;
+}
+
+.MainAreaTextBottom{
+    padding-top: 10px;
+    font-size: large;
+    font-weight: bold;
+}
