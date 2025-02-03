@@ -25,6 +25,7 @@ To create a website `Weather To Go`. This will quickly inform the user what they
 [Back to Contents](#contents)
 
 ## Goals
+To create a quick and easy resources for someone to be able to tell what weather situations they will encounter when they leave where they are. Never again should you be caught out without an umbrella or suncream!
 
 [Back to Contents](#contents)
 
