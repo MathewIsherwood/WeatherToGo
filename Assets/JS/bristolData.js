@@ -1,4 +1,4 @@
-{
+const bristolData = {
     "type": "FeatureCollection",
     "features": [
         {
@@ -1238,4 +1238,4 @@
             }
         }
     ]
-}
+};
