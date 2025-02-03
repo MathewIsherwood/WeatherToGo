@@ -1,3 +1,7 @@
+function getAllParameters(bristolData) {
+    
+}
+
 function getAllWeatherHours(weatherData) {
     return weatherData.features[0].properties.timeSeries;
 }
@@ -36,5 +40,20 @@ function getCurrentHourISO() {
     return textTime;
 }
 
+function setTemperatureTextArea(weatherHour) {
+    const temperature = Math.floor(weatherHour.screenTemperature);
+    document.getElementsByClassName("TemperatureTextArea")[0].innerText = temperature.toString();
+}
+
+function setUVIndexTextArea(weatherHour) {
+    const uvIndex = weatherHour.uvIndex;
+    document.getElementsByClassName("UVIndexTextArea")[0].innerText = uvIndex.toString();
+}
+
 const allWeatherHours = getAllWeatherHours(bristolData);
-console.log(getOneWeatherHour(getCurrentHourISO(), allWeatherHours));
+// const parameters 
+const currentWeatherHour = getOneWeatherHour(getCurrentHourISO(), allWeatherHours);
+// console.log(getOneWeatherHour(getCurrentHourISO(), allWeatherHours));
+
+setTemperatureTextArea(currentWeatherHour);
+setUVIndexTextArea(currentWeatherHour);
