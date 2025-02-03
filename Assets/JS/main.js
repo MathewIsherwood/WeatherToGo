@@ -1,6 +1,16 @@
-function getAllParameters(bristolData) {
-    
+function getAllParameters(weatherData) {
+    return weatherData.parameters;
 }
+
+// function getParameterSymbolText(parameterName, allParameters) {
+//     for (let parameter of allParameters) {
+//         if (parameter.name === parameterName) {
+//             return parameter.unit.symbol.type;
+//         }
+//     }
+
+//     //error handling return here.
+// }
 
 function getAllWeatherHours(weatherData) {
     return weatherData.features[0].properties.timeSeries;
@@ -20,40 +30,39 @@ function getCurrentHourISO() {
     const currentTime = new Date();
     let textTime = currentTime.toISOString();
     //remove 'Z'
-    textTime = textTime.slice(0,22);
+    textTime = textTime.slice(0, 22);
 
     //slice the minutes
-    let roundHours = Number(textTime.slice(14,16));
+    let roundHours = Number(textTime.slice(14, 16));
 
     //decimalise minutes, round to nearest hour
     roundHours /= 60;
     roundHours = Math.round(roundHours);
-    
-    if(roundHours === 1) {
-        let currentHour = Number(textTime.slice(11,13));
+
+    if (roundHours === 1) {
+        let currentHour = Number(textTime.slice(11, 13));
         let nextHour = currentHour + 1;
-        
-        textTime = textTime.replace(currentHour,nextHour);
+
+        textTime = textTime.replace(currentHour, nextHour);
     }
 
-    textTime = textTime.slice(0,14) + '00Z';
+    textTime = textTime.slice(0, 14) + '00Z';
     return textTime;
 }
 
 function setTemperatureTextArea(weatherHour) {
-    const temperature = Math.floor(weatherHour.screenTemperature);
-    document.getElementsByClassName("TemperatureTextArea")[0].innerText = temperature.toString();
+    const temperature = Math.floor(weatherHour.screenTemperature).toString() + "°C";
+    document.getElementsByClassName("TemperatureTextArea")[0].innerText = temperature;
 }
 
 function setUVIndexTextArea(weatherHour) {
-    const uvIndex = weatherHour.uvIndex;
-    document.getElementsByClassName("UVIndexTextArea")[0].innerText = uvIndex.toString();
+    const uvIndex = "UV Index: " + weatherHour.uvIndex.toString();
+    document.getElementsByClassName("UVIndexTextArea")[0].innerText = uvIndex;
 }
 
 const allWeatherHours = getAllWeatherHours(bristolData);
-// const parameters 
+// const parameters = getAllParameters(bristolData);
 const currentWeatherHour = getOneWeatherHour(getCurrentHourISO(), allWeatherHours);
-// console.log(getOneWeatherHour(getCurrentHourISO(), allWeatherHours));
 
 setTemperatureTextArea(currentWeatherHour);
 setUVIndexTextArea(currentWeatherHour);
