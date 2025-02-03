@@ -1,0 +1,21 @@
+.TemperatureBackgroundColour {
+    background-color: #f0f0f0;
+}
+.TemperatureBackgroundColourColdest {
+    background-color: rgb(0, 0, 196);
+}
+.TemperatureBackgroundColourCold {
+    background-color: rgb(35, 174, 255);
+}
+.TemperatureBackgroundColourOK {
+    background-color: cyan;
+}
+.TemperatureBackgroundColourNice {
+    background-color: rgb(255, 196, 0);
+}
+.TemperatureBackgroundColourBitWarm {
+    background-color: orange;
+}
+.TemperatureBackgroundColourReallyWarm {
+    background-color: red;
+}
