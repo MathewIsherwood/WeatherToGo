@@ -46,6 +46,7 @@ function getCurrentHourISO() {
         textTime = textTime.replace(currentHour, nextHour);
     }
 
+    //add 'Z' back in to match ISO standards for successful comparison.
     textTime = textTime.slice(0, 14) + '00Z';
     return textTime;
 }
