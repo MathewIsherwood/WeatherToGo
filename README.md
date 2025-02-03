@@ -1,4 +1,4 @@
-# Hope Shield Connect
+# Weather To Go
 
 ## Contents
 - [Project Overview](#project-overview)
