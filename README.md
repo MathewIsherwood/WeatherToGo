@@ -20,7 +20,7 @@
 ## Project Overview
 To create a website `Weather To Go`. This will quickly inform the user what they need to know of the weather to come.
 
-[Project Link](https://mathewisherwood.github.io/Mental-Health-Awareness/)
+[Project Link](https://github.com/MathewIsherwood/WeatherToGo)
 
 [Back to Contents](#contents)
 
@@ -29,12 +29,12 @@ To create a website `Weather To Go`. This will quickly inform the user what they
 [Back to Contents](#contents)
 
 ## User Stories
- 
 
-
----
-
-
+- As a user, I want to see the current weather at my location so that I can quickly assess the conditions outside.
+- As a user, I want to be alerted if I need specific items like an umbrella, suncream, or a jacket based on the weather forecast so that I can prepare appropriately before heading out.
+- As a user, I want to receive suggestions for what to wear based on the weather, so I can dress comfortably for the day.
+- As a user, I want to see hourly or daily weather forecasts so I can plan ahead for the day or week, ensuring I bring the right items.
+- As a user, I want to have the option to enter a different location and get weather recommendations for that area, in case I’m traveling or want to check the weather elsewhere.
 
 [Back to Contents](#contents)
 
