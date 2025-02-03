@@ -60,7 +60,29 @@ function setUVIndexTextArea(weatherHour) {
     document.getElementsByClassName("UVIndexTextArea")[0].innerText = uvIndex;
 }
 
+// const text-blue-500; // Coldest
+// const text-cyan-500; // Cold
+// const text-sky-500; // OK
+// const text-yellow-500; // Nice
+// const text-orange-500; // Bit Warm
+// const text-red-500; // Really Warm
+
+
+function loadingScreen() {
+    const iconDisplayArea = document.getElementById('IconDisplayArea');
+    iconDisplayArea.innerHTML = `
+        <div class="IconDisplayArea bg-white p-6 rounded-lg shadow-lg">
+            <h2>Loading...</h2>
+            <div class="loadingbaby">
+                <img src="Assets/Images/loadingbaby.jpg" alt="Loading...">
+            </div>
+        </div>
+    `;
+}
+
 const allWeatherHours = getAllWeatherHours(bristolData);
+console.log(getOneWeatherHour(getCurrentHourISO(), allWeatherHours));
+
 // const parameters = getAllParameters(bristolData);
 const currentWeatherHour = getOneWeatherHour(getCurrentHourISO(), allWeatherHours);
 
