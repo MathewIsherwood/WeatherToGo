@@ -1,3 +1,17 @@
+function getAllParameters(weatherData) {
+    return weatherData.parameters;
+}
+
+// function getParameterSymbolText(parameterName, allParameters) {
+//     for (let parameter of allParameters) {
+//         if (parameter.name === parameterName) {
+//             return parameter.unit.symbol.type;
+//         }
+//     }
+
+//     //error handling return here.
+// }
+
 function getAllWeatherHours(weatherData) {
     return weatherData.features[0].properties.timeSeries;
 }
@@ -16,36 +30,42 @@ function getCurrentHourISO() {
     const currentTime = new Date();
     let textTime = currentTime.toISOString();
     //remove 'Z'
-    textTime = textTime.slice(0,22);
+    textTime = textTime.slice(0, 22);
 
     //slice the minutes
-    let roundHours = Number(textTime.slice(14,16));
+    let roundHours = Number(textTime.slice(14, 16));
 
     //decimalise minutes, round to nearest hour
     roundHours /= 60;
     roundHours = Math.round(roundHours);
-    
-    if(roundHours === 1) {
-        let currentHour = Number(textTime.slice(11,13));
+
+    if (roundHours === 1) {
+        let currentHour = Number(textTime.slice(11, 13));
         let nextHour = currentHour + 1;
-        
-        textTime = textTime.replace(currentHour,nextHour);
+
+        textTime = textTime.replace(currentHour, nextHour);
     }
 
-    textTime = textTime.slice(0,14) + '00Z';
+    textTime = textTime.slice(0, 14) + '00Z';
     return textTime;
 }
 
-const allWeatherHours = getAllWeatherHours(bristolData);
-console.log(getOneWeatherHour(getCurrentHourISO(), allWeatherHours));
+function setTemperatureTextArea(weatherHour) {
+    const temperature = Math.floor(weatherHour.screenTemperature).toString() + "°C";
+    document.getElementsByClassName("TemperatureTextArea")[0].innerText = temperature;
+}
 
+function setUVIndexTextArea(weatherHour) {
+    const uvIndex = "UV Index: " + weatherHour.uvIndex.toString();
+    document.getElementsByClassName("UVIndexTextArea")[0].innerText = uvIndex;
+}
 
-text-blue-500 // Coldest
-text-cyan-500 // Cold
-text-sky-500 // OK
-text-yellow-500 // Nice
-text-orange-500 // Bit Warm
-text-red-500 // Really Warm
+// const text-blue-500; // Coldest
+// const text-cyan-500; // Cold
+// const text-sky-500; // OK
+// const text-yellow-500; // Nice
+// const text-orange-500; // Bit Warm
+// const text-red-500; // Really Warm
 
 
 function loadingScreen() {
@@ -59,3 +79,12 @@ function loadingScreen() {
         </div>
     `;
 }
+
+const allWeatherHours = getAllWeatherHours(bristolData);
+console.log(getOneWeatherHour(getCurrentHourISO(), allWeatherHours));
+
+// const parameters = getAllParameters(bristolData);
+const currentWeatherHour = getOneWeatherHour(getCurrentHourISO(), allWeatherHours);
+
+setTemperatureTextArea(currentWeatherHour);
+setUVIndexTextArea(currentWeatherHour);
