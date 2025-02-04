@@ -12,14 +12,41 @@ function getAllParameters(weatherData) {
 //     //error handling return here.
 // }
 
+//geolocation api service - w3schools
 function getCurrentLocation() {
+    let currentLocationObj = {};
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        currentLocationObj = navigator.geolocation.getCurrentPosition(usePosition,showError);
     } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
+        console.log("Geolocation is not supported by this browser.");
     }
 
-    console.log("latitude is: " + position.coords.latitude + ", longitude is: " + position.coords.longitude);
+    console.log(currentLocationObj);
+}
+
+function usePosition(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+
+}
+
+//geolocation error handling - w3schools
+function showError(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            console.log("User denied the request for Geolocation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            console.log("Location information is unavailable.");
+            break;
+        case error.TIMEOUT:
+            console.log("The request to get user location timed out.");
+            break;
+        case error.UNKNOWN_ERROR:
+            console.log("An unknown error occurred.");
+            break;
+    }
 }
 
 function getAllWeatherHours(weatherData) {
@@ -38,6 +65,8 @@ function getOneWeatherHour(dateTime, weatherData) {
 
 // JQuery request to get weather data from the API
 function getLocationWeatherHours() {
+    getCurrentLocation();
+
 
 }
 
@@ -106,3 +135,5 @@ const currentWeatherHour = getOneWeatherHour(getCurrentHourISO(), allWeatherHour
 
 setTemperatureTextArea(currentWeatherHour);
 setUVIndexTextArea(currentWeatherHour);
+
+getCurrentLocation();
