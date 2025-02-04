@@ -12,6 +12,16 @@ function getAllParameters(weatherData) {
 //     //error handling return here.
 // }
 
+function getCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+
+    console.log("latitude is: " + position.coords.latitude + ", longitude is: " + position.coords.longitude);
+}
+
 function getAllWeatherHours(weatherData) {
     return weatherData.features[0].properties.timeSeries;
 }
@@ -26,6 +36,12 @@ function getOneWeatherHour(dateTime, weatherData) {
     //error handling return here.
 }
 
+// JQuery request to get weather data from the API
+function getLocationWeatherHours() {
+
+}
+
+// get the current hour (rounded to nearest hour) in ISO format
 function getCurrentHourISO() {
     const currentTime = new Date();
     let textTime = currentTime.toISOString();
@@ -39,6 +55,7 @@ function getCurrentHourISO() {
     roundHours /= 60;
     roundHours = Math.round(roundHours);
 
+    //add the rounded hours back in tp ISO format
     if (roundHours === 1) {
         let currentHour = Number(textTime.slice(11, 13));
         let nextHour = currentHour + 1;
