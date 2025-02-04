@@ -13,11 +13,22 @@
    <!-- fontawesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" 
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
 </head>
     <body>
         <div id="primarybackground" class="TemperatureBackgroundColourNice">
             <div id="IconDisplayArea" class="flex items-center flex-col justify-center min-h-screen">
+
+                <button id="toggleButton" class="mb-4 p-2 bg-blue-500 text-white rounded">Toggle Search/GPS</button>                
+                <div id="searchbar" class="flex items-center flex-col justify-center">
+                    <form id="placeForm">
+                        <label for="placeName">Location:</label>
+                        <input type="text" id="placeName" name="placeName" required>
+                        <button id="submitButton" data-type="submit">Submit</button>
+                    </form>
+                </div>
+                <div id="GPSlocation" class="flex items-center flex-col justify-center">
+                    <h1 class="text-2xl font-bold mb-4 text-center">GPS Location: <span id="GPSLocation">Test</span></h1>
+                </div>
                 <div class="IconDisplayArea bg-white p-6 rounded-lg shadow-lg">
                     <!-- Card content goes here -->
                     <h2 class="MainAreaTextTop text-2xl font-bold mb-4 text-center">Grab your brolley</h2>
