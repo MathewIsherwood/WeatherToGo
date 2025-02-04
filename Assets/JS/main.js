@@ -67,15 +67,23 @@ function getOneWeatherHour(dateTime, weatherData) {
     //error handling return here.
 }
 
-// Fetch request to get hourly weather data from the API
-function updateWeatherHour(townName) {
+// Fetch request to get hourly weather data from the API.
+// Optional parameter longlat, if a longitude and latitude array
+// aren't provided, then the function will fetch the longlat from location name
+function updateWeatherHour(townName, longlat = 0) {
     const url = `https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/hourly`;
     const apikey = getAPIKey();
 
-    let longlat = [getLongLat(townName)];
+    if (longlat === 0) {
+        longlat = getLongLat(townName);
+    }
+
+    if (longlat === undefined || longlat === 0) {
+        longlat = { long: 51.4545, lat: -2.5879 };
+    }
 
     //fetch written by AI
-    fetch(`${url}?latitude=${longlat[0]}&longitude=${longlat[1]}`, {
+    fetch(`${url}?latitude=${longlat.long}&longitude=${longlat.lat}`, {
         method: 'GET',
         headers: {
             'accept': 'application/json',
@@ -91,7 +99,6 @@ function updateWeatherHour(townName) {
             setTemperatureTextArea(currentWeatherHour);
             setUVIndexTextArea(currentWeatherHour);
             setWeatherDescriptionAndIcon(currentWeatherHour);
-
         })
         .catch(error => {
             console.error('Error fetching weather data:', error);
@@ -99,20 +106,20 @@ function updateWeatherHour(townName) {
 }
 
 // Fetch request to get daily weather data from the API
-function updateWeatherDaily(townName) {
-    // getCurrentLocation();
-
+function updateWeatherDaily(townName, longlat = 0) {
     const url = `https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/daily`;
     const apikey = getAPIKey();
 
-    let longlat = getLongLat(townName);
+    if (longlat === 0) {
+        longlat = getLongLat(townName);
+    }
 
-    if (longlat === undefined) {
-        longlat = [51.4545, -2.5879];
+    if (longlat === undefined || longlat === 0) {
+        longlat = { long: 51.4545, lat: -2.5879 };
     }
 
     //fetch written by AI
-    fetch(`${url}?latitude=${longlat[0]}&longitude=${longlat[1]}`, {
+    fetch(`${url}?latitude=${longlat.long}&longitude=${longlat.lat}`, {
         method: 'GET',
         headers: {
             'accept': 'application/json',
@@ -127,10 +134,6 @@ function updateWeatherDaily(townName) {
 
             setFiveDayTemperatureTextArea(allWeatherDays);
             setFiveDayWeatherDescriptionAndIcon(allWeatherDays);
-            // setTemperatureTextArea(currentWeatherHour);
-            // setUVIndexTextArea(currentWeatherHour);
-            // setWeatherDescriptionAndIcon(currentWeatherHour);
-
         })
         .catch(error => {
             console.error('Error fetching weather data:', error);
@@ -261,11 +264,11 @@ placeName.addEventListener('keypress', function (e) {
     }
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let buttons = document.getElementsByTagName("button");
 
     for (let button of buttons) {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             if (this.getAttribute("data-type") === "submit") {
                 let userAnswer = (document.getElementById("placeName").value).toString();
                 updateWeatherHour(userAnswer);
@@ -288,9 +291,12 @@ function getLongLat(placeName) {
             for (let i = 0; i < data.result.length; i++) {
                 if (data.result[i].local_type == "Town" || data.result[i].local_type == "City") {
                     //console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
-                    lat = data.result[i].latitude;
-                    long = data.result[i].longitude;
-                    return [lat, long];
+                    long = parseFloat(data.result[i].longitude).toFixed(4);
+                    lat = parseFloat(data.result[i].latitude).toFixed(4);
+                    let longLatObj = {"long": long, "lat": lat};
+                    
+                    console.log(longLatObj);
+                    return longLatObj;
                     /*
                     document.getElementById('latitude').value = lat;
                     document.getElementById('latitude').innerHTML = `${lat}`;
@@ -304,14 +310,16 @@ function getLongLat(placeName) {
         .catch(error => {
             console.error('Error:', error);
         });
+
+        console.log("got here");
 }
 
-updateWeatherHour("Bristol");
+updateWeatherHour("Burnley");
 
 
 // Toggle between GPS and Location Search
 
-document.getElementById('toggleButton').addEventListener('click', function() {
+document.getElementById('toggleButton').addEventListener('click', function () {
     var searchbar = document.getElementById('searchbar');
     var gpsLocation = document.getElementById('GPSlocation');
     if (searchbar.style.display === 'none') {
