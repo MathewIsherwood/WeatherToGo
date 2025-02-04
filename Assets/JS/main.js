@@ -64,19 +64,16 @@ function getOneWeatherHour(dateTime, weatherData) {
 }
 
 // Fetch request to get weather data from the API
-function updateWeatherHour(lat,long) {
+function updateWeatherHour(townName) {
     // getCurrentLocation();
 
     const url = `https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/hourly`;
     const apikey = `eyJ4NXQjUzI1NiI6Ik5XVTVZakUxTkRjeVl6a3hZbUl4TkdSaFpqSmpOV1l6T1dGaE9XWXpNMk0yTWpRek5USm1OVEE0TXpOaU9EaG1NVFJqWVdNellXUm1ZalUyTTJJeVpBPT0iLCJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ==.eyJzdWIiOiJtb2d0aGVtb3NxdWl0b0BnbWFpbC5jb21AY2FyYm9uLnN1cGVyIiwiYXBwbGljYXRpb24iOnsib3duZXIiOiJtb2d0aGVtb3NxdWl0b0BnbWFpbC5jb20iLCJ0aWVyUXVvdGFUeXBlIjpudWxsLCJ0aWVyIjoiVW5saW1pdGVkIiwibmFtZSI6InNpdGVfc3BlY2lmaWMtMDViNTQ1ODAtYWYwZS00ZmJjLWI1ZjMtMmE5ZmViOWVlYjdjIiwiaWQiOjkzMzEsInV1aWQiOiI1NDgxMTc1Mi01NjlkLTQ4MWMtODU2Ny1iYTVhN2RlZGIzMzIifSwiaXNzIjoiaHR0cHM6XC9cL2FwaS1tYW5hZ2VyLmFwaS1tYW5hZ2VtZW50Lm1ldG9mZmljZS5jbG91ZDo0NDNcL29hdXRoMlwvdG9rZW4iLCJ0aWVySW5mbyI6eyJ3ZGhfc2l0ZV9zcGVjaWZpY19mcmVlIjp7InRpZXJRdW90YVR5cGUiOiJyZXF1ZXN0Q291bnQiLCJncmFwaFFMTWF4Q29tcGxleGl0eSI6MCwiZ3JhcGhRTE1heERlcHRoIjowLCJzdG9wT25RdW90YVJlYWNoIjp0cnVlLCJzcGlrZUFycmVzdExpbWl0IjowLCJzcGlrZUFycmVzdFVuaXQiOiJzZWMifX0sImtleXR5cGUiOiJQUk9EVUNUSU9OIiwic3Vic2NyaWJlZEFQSXMiOlt7InN1YnNjcmliZXJUZW5hbnREb21haW4iOiJjYXJib24uc3VwZXIiLCJuYW1lIjoiU2l0ZVNwZWNpZmljRm9yZWNhc3QiLCJjb250ZXh0IjoiXC9zaXRlc3BlY2lmaWNcL3YwIiwicHVibGlzaGVyIjoiSmFndWFyX0NJIiwidmVyc2lvbiI6InYwIiwic3Vic2NyaXB0aW9uVGllciI6IndkaF9zaXRlX3NwZWNpZmljX2ZyZWUifV0sInRva2VuX3R5cGUiOiJhcGlLZXkiLCJpYXQiOjE3Mzg2NjU1MTksImp0aSI6IjlmMDQ2MWJiLWFmODctNDc3MC1hYzRhLTMxN2RiODE1NjQxYyJ9.AEFlnjZrvfSlDBzGF90mZb5hH9yXQ-RLkNKBzOOJOs-tKJctS05iLIgL0SjlohsskiYhLphVG4tZ4qgqnR2X97mGjXjtzYALoaDQYI1IBXBN9MEAIdoqhPAMghzlkgOSzjyc7_NpB8pALsqOzHVdediOr4TVmQv04lEfwpPs8Lp2ALByGadWDzSBBzN-qLktCjRS0H-oHDCC2qHoKTF-p3svvyvah9hCWTG-HaWK1JcsEpAPIqD-uu2KtOxkSUq097WPKpNno1dybsISx6uBZSVeP7ejP0sH16omqk03fPHAgNv9aE5buhmTkCQDO46X-VBk_zmF9BNtqTbNUkes3g==`;
 
-    if(lat === undefined || long === undefined) {
-        lat = 52.5;
-        long = -1.9;
-    }
+    let longlat = getLongLat(townName);
 
     //fetch written by AI
-    fetch(`${url}?latitude=${lat}&longitude=${long}`, {
+    fetch(`${url}?latitude=${longlat[0]}&longitude=${longlat[1]}`, {
         method: 'GET',
         headers: {
             'accept': 'application/json',
@@ -185,6 +182,62 @@ function loadingScreen() {
     `;
 }
 
+
+//html input box for placename refreshed upon keypress or submit button click
+const placeName = document.getElementById('placeName');
+placeName.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        updateWeatherHour(placeName.value);
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    let buttons = document.getElementsByTagName("button");
+
+    for (let button of buttons) {
+        button.addEventListener("click", function() {
+            if (this.getAttribute("data-type") === "submit") {
+                let userAnswer = (document.getElementById("placeName").value).toString();
+                updateWeatherHour(userAnswer);
+            } else {
+                ErrorEvent("Unknown place submitted");
+            }
+        });
+    }
+});
+
+
+let long = 0;
+let lat = 0;
+
+ //get long - lat for places in the uk based on the name of the place
+ function getLongLat(placeName) {
+     const url = `https:api.postcodes.io/places?query=${placeName}`;
+     //console.log('Fetching URL:', url);
+     fetch(url)
+         .then(response => response.json())
+         .then(data => {
+            for (let i = 0; i < data.result.length; i++) {
+                if (data.result[i].local_type == "Town" || data.result[i].local_type == "City") {
+                    //console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
+                    lat = data.result[i].latitude;
+                    long = data.result[i].longitude;
+                    return [lat, long];
+                    /*
+                    document.getElementById('latitude').value = lat;
+                    document.getElementById('latitude').innerHTML = `${lat}`;
+                    document.getElementById('longitude').value = long;
+                    document.getElementById('longitude').innerHTML = `${long}`;
+                    */
+                    break;
+                }
+            }
+         })
+         .catch(error => {
+             console.error('Error:', error);
+         });
+ }
+
 // const allWeatherHours = getAllWeatherHours(bristolData);
 // console.log(getOneWeatherHour(getCurrentHourISO(), allWeatherHours));
 
@@ -197,4 +250,4 @@ function loadingScreen() {
 // getCurrentLocation();
 
 
-updateWeatherHour(52.5,-1.9);
+updateWeatherHour("Bristol");
