@@ -89,6 +89,7 @@ function updateWeatherHour(townName) {
         setTemperatureTextArea(currentWeatherHour);
         setUVIndexTextArea(currentWeatherHour);
         setWeatherDescriptionAndIcon(currentWeatherHour);
+        updateWeatherHour(switchBackgroundColour);
 
     })
     .catch(error => {
