@@ -91,6 +91,7 @@ function updateWeatherHour(townName) {
             setTemperatureTextArea(currentWeatherHour);
             setUVIndexTextArea(currentWeatherHour);
             setWeatherDescriptionAndIcon(currentWeatherHour);
+            console.log(currentWeatherHour);
 
         })
         .catch(error => {
@@ -106,8 +107,8 @@ function updateWeatherDaily(townName) {
     const apikey = getAPIKey();
 
     let longlat = getLongLat(townName);
-
     if (longlat === undefined) {
+        console.log("Location not found, defaulting to Bristol");
         longlat = [51.4545, -2.5879];
     }
 
@@ -281,15 +282,19 @@ function getLongLat(placeName) {
     const url = `https:api.postcodes.io/places?query=${placeName}`;
     let long = 0;
     let lat = 0;
-    //console.log('Fetching URL:', url);
+    console.log('Fetching URL:', url);
     fetch(url)
         .then(response => response.json())
         .then(data => {
             for (let i = 0; i < data.result.length; i++) {
                 if (data.result[i].local_type == "Town" || data.result[i].local_type == "City") {
-                    //console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
+                    console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
                     lat = data.result[i].latitude;
                     long = data.result[i].longitude;
+                    console.log(`Place: ${data.result[i].name_1}, Longitude: ${long}, Latitude: ${lat}`);
+                    lat = parseInt(data.result[i].latitude);
+                    long = parseInt(data.result[i].longitude);
+                    console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
                     return [lat, long];
                     /*
                     document.getElementById('latitude').value = lat;
@@ -303,10 +308,11 @@ function getLongLat(placeName) {
         })
         .catch(error => {
             console.error('Error:', error);
-        });
+        }); 
+        console.log([lat, long]);       
 }
 
-updateWeatherHour("Bristol");
+updateWeatherHour("Burnley");
 
 
 // Toggle between GPS and Location Search
