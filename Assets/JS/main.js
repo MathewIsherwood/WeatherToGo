@@ -110,12 +110,10 @@ function updateWeatherDaily(townName, longlat = 0) {
     const url = `https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/daily`;
     const apikey = getAPIKey();
 
-    if (longlat === 0) {
-        longlat = getLongLat(townName);
-    }
-
-    if (longlat === undefined || longlat === 0) {
-        longlat = { long: 51.4545, lat: -2.5879 };
+    let longlat = getLongLat(townName);
+    if (longlat === undefined) {
+        console.log("Location not found, defaulting to Bristol");
+        longlat = [51.4545, -2.5879];
     }
 
     //fetch written by AI
@@ -284,7 +282,7 @@ function getLongLat(placeName) {
     const url = `https:api.postcodes.io/places?query=${placeName}`;
     let long = 0;
     let lat = 0;
-    //console.log('Fetching URL:', url);
+    console.log('Fetching URL:', url);
     fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -310,11 +308,9 @@ function getLongLat(placeName) {
         .catch(error => {
             console.error('Error:', error);
         });
-
-        console.log("got here");
 }
 
-updateWeatherHour("Burnley");
+// updateWeatherHour("Burnley");
 
 
 // Toggle between GPS and Location Search
