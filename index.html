@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather To Go</title>
+   
+    <!-- tailwind and main CSS -->
+    <link rel="stylesheet" href="Assets/Styles/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+   
+   <!-- fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" 
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+ 
+</head>
+    <body>
+        <div id="primarybackground" class="TemperatureBackgroundColourNice">
+            <div id="IconDisplayArea" class="flex items-center flex-col justify-center min-h-screen">
+                <div class="IconDisplayArea bg-white p-6 rounded-lg shadow-lg">
+                    <!-- Card content goes here -->
+                    <h2 class="MainAreaTextTop text-2xl font-bold mb-4 text-center">Grab your brolley</h2>
+                    <!-- Funny comment about the weather to come 
+                        1) Grab your brolley // Rain
+                        2) Grab your brolley // Rain
+                        3) Oh I do like to be // Sun
+                        4) Sunshine and smiles // Sun
+                        5) Cloudy with a chance of meatballs // Cloud
+                        6) Overcast skies ahead // Cloud
+                        7) Snowball fight time! // Snow
+                        8) Winter wonderland // Snow
+                        9) Hold onto your hat! // Windy
+                        10) Blustery day // Windy
+                        11) Drizzle and dazzle // Rain
+                        12) Rain, rain, go away // Rain
+                    -->
+                    <div class="text-center">
+                        <i id="MainIcon" class="IconChoice fas fa-cloud-sun text-6xl text-yellow-500"></i>
+                    </div>
+                    <p class="MainAreaTextBottom text-center">It's raining cats and dogs</p>
+                    <!-- End funny comment about the weather to come 
+                    1) it's raining cats and dogs // Rain
+                    2) it's gonna rain!   // Rain
+                    3) Beside the seaside // Sun
+                    4) Sunshine and smiles // Sun
+                    5) Cloudy with a chance of meatballs // Cloud
+                    6) Overcast skies ahead // Cloud
+                    7) Snowball fight time! // Snow
+                    8) Winter wonderland // Snow
+                    9) Hold onto your hat! // Windy
+                    10) Blustery day // Windy
+                    11) Drizzle and dazzle // Rain
+                    12) Rain, rain, go away // Rain
+                    -->
+
+                </div>
+                <div>
+                    <p class="TemperatureTextArea">21 &deg;C </p>
+                </div>
+                <br>
+                <div>
+                    <p class="UVIndexTextArea">UV Index right now is : Low - Burn Time 60 Minutes</p>
+                    <!-- 
+                    1) UV Index right now is : Low - Burn Time 60 Minutes
+                    2) UV Index right now is : Low - Burn Time 60 Minutes
+                    3) UV Index right now is : Moderate - Burn Time 45 Minutes
+                    4) UV Index right now is : Moderate - Burn Time 45 Minutes
+                    5) UV Index right now is : Moderate - Burn Time 45 Minutes
+                    6) UV Index right now is : High - Burn Time 30 Minutes
+                    7) UV Index right now is : High - Burn Time 30 Minutes
+                    8) UV Index right now is : Very High - Burn Time 15-25 Minutes
+                    9) UV Index right now is : Very High - Burn Time 15-25 Minutes
+                    10) UV Index right now is : Very High - Burn Time 15-25 Minutes
+                    -->
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="Assets/JS/colourswitch.js"></script>
+    <script src="Assets/JS/bristolData.js"></script> <!-- Calls data from bristolData.js -->
+    <script src="Assets/JS/main.js"></script> <!-- Utilise JS file data -->
+</html>
