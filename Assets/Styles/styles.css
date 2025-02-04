@@ -35,3 +35,25 @@
     font-size: large;
     font-weight: bold;
 }
+
+#searchbar{
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#submitButton{
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 6px 20px rgba(0, 0, 0, 0.19) inset;
+}
+
+#submitButton:hover{
+    background-color: #f0f0f0;
+}

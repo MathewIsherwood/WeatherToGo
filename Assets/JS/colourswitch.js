@@ -23,3 +23,4 @@ function switchBackgroundColour(weatherCondition) {
             break;
     }
 }
+
