@@ -89,8 +89,7 @@ function updateWeatherHour(townName) {
         setTemperatureTextArea(currentWeatherHour);
         setUVIndexTextArea(currentWeatherHour);
         setWeatherDescriptionAndIcon(currentWeatherHour);
-        updateWeatherHour(switchBackgroundColour);
-
+        switchBackgroundColour(currentWeatherHour.significantWeatherCode); // Call the function here
     })
     .catch(error => {
         console.error('Error fetching weather data:', error);
