@@ -78,20 +78,20 @@ function updateWeatherHour(townName) {
             'apikey': apikey
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        // Process the weather data here
-        const currentWeatherHour = getOneWeatherHour(getCurrentHourISO(), getAllWeatherTimes(data));
-        
-        setTemperatureTextArea(currentWeatherHour);
-        setUVIndexTextArea(currentWeatherHour);
-        setWeatherDescriptionAndIcon(currentWeatherHour);
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Process the weather data here
+            const currentWeatherHour = getOneWeatherHour(getCurrentHourISO(), getAllWeatherTimes(data));
 
-    })
-    .catch(error => {
-        console.error('Error fetching weather data:', error);
-    });
+            setTemperatureTextArea(currentWeatherHour);
+            setUVIndexTextArea(currentWeatherHour);
+            setWeatherDescriptionAndIcon(currentWeatherHour);
+
+        })
+        .catch(error => {
+            console.error('Error fetching weather data:', error);
+        });
 }
 
 // Fetch request to get daily weather data from the API
@@ -103,7 +103,7 @@ function updateWeatherDaily(townName) {
 
     let longlat = getLongLat(townName);
 
-    if(longlat === undefined) {
+    if (longlat === undefined) {
         longlat = [51.4545, -2.5879];
     }
 
@@ -115,21 +115,22 @@ function updateWeatherDaily(townName) {
             'apikey': apikey
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        // Process the weather data here
-        const allWeatherDays = getAllWeatherTimes(data);
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Process the weather data here
+            const allWeatherDays = getAllWeatherTimes(data);
 
-        setFiveDayTemperatureTextArea(allWeatherDays);
-        // setTemperatureTextArea(currentWeatherHour);
-        // setUVIndexTextArea(currentWeatherHour);
-        // setWeatherDescriptionAndIcon(currentWeatherHour);
+            setFiveDayTemperatureTextArea(allWeatherDays);
+            setFiveDayWeatherDescriptionAndIcon(allWeatherDays);
+            // setTemperatureTextArea(currentWeatherHour);
+            // setUVIndexTextArea(currentWeatherHour);
+            // setWeatherDescriptionAndIcon(currentWeatherHour);
 
-    })
-    .catch(error => {
-        console.error('Error fetching weather data:', error);
-    });
+        })
+        .catch(error => {
+            console.error('Error fetching weather data:', error);
+        });
 }
 
 // get the current hour (rounded to nearest hour) in ISO format
@@ -185,18 +186,21 @@ function setFiveDayTemperatureTextArea(weatherDays) {
     //loop for five days of data, exit out on sixth iteration
     //we skip the zeroith in the array, as that is yesterday's data
     let temperature = "";
-    for (let i=1;i<6;i++) {
+    for (let i = 1; i < 6; i++) {
         temperature = Math.floor(weatherDays[i].dayMaxScreenTemperature).toString() + "°C";
         document.getElementsByClassName(`Day${i}Temp`)[0].innerText = temperature;
     }
 }
 
-function setFiveDayWeatherIcon(weatherDays) {
-
-
-    // const weatherInfo = getWeatherDescriptionAndIcon(weatherHour.SignificantWeatherCode);
-    // document.getElementsByClassName("WeatherDescription")[0].innerText = weatherInfo.description;
-    // document.getElementsByClassName("WeatherIcon")[0].src = weatherInfo.icon;
+function setFiveDayWeatherDescriptionAndIcon(weatherDays) {
+    //loop for five days of data, exit out on sixth iteration
+    //we skip the zeroith in the array, as that is yesterday's data
+    let weatherInfo = "";
+    for (let i = 1; i < 6; i++) {
+        weatherInfo = getWeatherDescriptionAndIcon(weatherDays[i].daySignificantWeatherCode);
+        document.getElementsByClassName(`Day${i}Weather`)[0].innerText = weatherInfo.description;
+        document.getElementsByClassName(`Day${i}Icon`)[0].src = weatherInfo.icon;
+    }
 }
 
 // const text-blue-500; // Coldest
@@ -266,15 +270,15 @@ function loadingScreen() {
 //     }
 // });
 
- //get long - lat for places in the uk based on the name of the place
- function getLongLat(placeName) {
-     const url = `https:api.postcodes.io/places?query=${placeName}`;
-     let long = 0;
-     let lat = 0;
-     //console.log('Fetching URL:', url);
-     fetch(url)
-         .then(response => response.json())
-         .then(data => {
+//get long - lat for places in the uk based on the name of the place
+function getLongLat(placeName) {
+    const url = `https:api.postcodes.io/places?query=${placeName}`;
+    let long = 0;
+    let lat = 0;
+    //console.log('Fetching URL:', url);
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
             for (let i = 0; i < data.result.length; i++) {
                 if (data.result[i].local_type == "Town" || data.result[i].local_type == "City") {
                     //console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
@@ -290,11 +294,11 @@ function loadingScreen() {
                     break;
                 }
             }
-         })
-         .catch(error => {
-             console.error('Error:', error);
-         });
- }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
 
 // const allWeatherHours = getAllWeatherTimes(bristolData);
 // console.log(getOneWeatherHour(getCurrentHourISO(), allWeatherHours));
