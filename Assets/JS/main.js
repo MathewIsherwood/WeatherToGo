@@ -72,7 +72,7 @@ function updateWeatherHour(townName) {
     const url = `https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/hourly`;
     const apikey = getAPIKey();
 
-    let longlat = getLongLat(townName);
+    let longlat = [getLongLat(townName)];
 
     //fetch written by AI
     fetch(`${url}?latitude=${longlat[0]}&longitude=${longlat[1]}`, {
@@ -307,4 +307,21 @@ function getLongLat(placeName) {
 }
 
 updateWeatherHour("Bristol");
-// updateWeatherDaily("Bristol");
+
+
+// Toggle between GPS and Location Search
+
+document.getElementById('toggleButton').addEventListener('click', function() {
+    var searchbar = document.getElementById('searchbar');
+    var gpsLocation = document.getElementById('GPSlocation');
+    if (searchbar.style.display === 'none') {
+        searchbar.style.display = 'flex';
+        gpsLocation.style.display = 'none';
+    } else {
+        searchbar.style.display = 'none';
+        gpsLocation.style.display = 'flex';
+    }
+});
+// Initialize with searchbar visible and GPS location hidden
+document.getElementById('searchbar').style.display = 'flex';
+document.getElementById('GPSlocation').style.display = 'none';
