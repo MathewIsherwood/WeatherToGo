@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Weather to Go</title>
    
     <!-- tailwind and main CSS -->
     <link rel="stylesheet" href="Assets/Styles/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
    
-   <!-- fontawesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" 
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
     <body>
         <div id="primarybackground" class="TemperatureBackgroundColourNice">
             <div id="IconDisplayArea" class="flex items-center flex-col justify-center min-h-screen">
-
+                <!-- Current weather readout. Displays current weather as well as witty comment related to it -->
                 <button id="toggleButton" class="mb-4 p-2 bg-blue-500 text-white rounded">Toggle Search/GPS</button>                
                 <div id="searchbar" class="flex items-center flex-col justify-center">
                     <div id="placeForm">
@@ -76,6 +73,7 @@
                     <p id="UVIndexDisplay" class="UVIndexTextArea"></p>
                 </div>
             </div>
+            <!-- Five day forecast - does what it says on the tin; shows the forecast for the next five days -->
             <div class="flex justify-center items-center min-h-screen">
                 <div class="5DayForecastBox max-w-sm rounded overflow-hidden shadow-lg bg-white p-4">
                     <div class="px-6 py-4">
@@ -125,6 +123,5 @@
         </div>
     </body>
 
-    <script src="Assets/JS/bristolData.js"></script> <!-- Calls data from bristolData.js -->
     <script src="Assets/JS/main.js"></script>
 </html>
