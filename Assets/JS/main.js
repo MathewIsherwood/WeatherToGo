@@ -16,6 +16,9 @@ function getCurrentLocation() {
     const options = {
         timeout: 20000
     };
+    //hide the toggle search/gps button, until the gps completes/fails
+    toggleSearchGPSButton();
+
     let currentLocationObj = {};
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(usePosition, showError, options);
@@ -32,6 +35,9 @@ function getCurrentLocation() {
 function usePosition(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
+
+    // show button to toggle between search and GPS, now that gps api has succeeded
+    toggleSearchGPSButton();
 
     console.log("Latitude: " + latitude + " Longitude: " + longitude);
     getTownName(latitude, longitude);
@@ -61,6 +67,9 @@ function showError(error) {
             setGPSLabel("Unknown GPS error.\nGPS Location:");
             break;
     }
+
+    // show button to toggle between search and GPS, now that gps has failed
+    toggleSearchGPSButton();
 
     // if the geolocation fails, assume "London" location
     const defaultLocation = "London";
@@ -289,6 +298,16 @@ function getCurrentHourISO() {
     return textTime;
 }
 
+function toggleSearchGPSButton() {
+    let toggleButton = document.getElementById('toggleButton');
+
+    if (toggleButton.style.visibility === 'hidden') {
+        toggleButton.style.visibility = 'visible';
+    } else if (toggleButton.style.visibility === 'visible' || toggleButton.style.visibility === '') {
+        toggleButton.style.visibility = 'hidden';
+    }
+}
+
 /**
  * Current hour forecast section
  */
@@ -303,10 +322,10 @@ function setUVIndexTextArea(weatherHour) {
     let uvIndex = "";
     // get the UV index from the weather object
     switch (weatherHour.uvIndex) {
-        case 0:            
+        case 0:
             uvIndex = "No sun right now, UV Index is Low"
             break;
-        case 1:            
+        case 1:
             uvIndex = "UV Index right now is : Low - Burn Time 60 Minutes"
             break;
         case 2:
@@ -341,7 +360,7 @@ function setUVIndexTextArea(weatherHour) {
             break;
     }
 
-   // and set that UV Index to the HTML text
+    // and set that UV Index to the HTML text
     document.getElementsByClassName("UVIndexTextArea")[0].innerText = uvIndex;
 }
 
@@ -493,7 +512,7 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let button of buttons) {
         button.addEventListener("click", function () {
             if (this.getAttribute("id") === "toggleButton") {
-               // do nothing
+                // do nothing
             } else if (this.getAttribute("id") === "submitButton") {
                 // get the placename from the text box
                 let userAnswer = (document.getElementById("placeName").value).toString();
