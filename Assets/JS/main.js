@@ -251,51 +251,41 @@ function setTemperatureTextArea(weatherHour) {
 }
 
 function setUVIndexTextArea(weatherHour) {
-    const uvIndex = "";
+    let uvIndex = "";
     // get the UV index from the weather object
     switch (weatherHour.uvIndex) {
-        case 1:
-            uvIndex = "1";
-            uvIndex = "UV Index: UV Index right now is : Low - Burn Time 60 Minutes"
+        case 1:            
+            uvIndex = "UV Index right now is : Low - Burn Time 60 Minutes"
             break;
         case 2:
-            uvIndex = "2";
-            uvIndex = "UV Index: UV Index right now is : Low - Burn Time 60 Minutes"
+            uvIndex = "UV Index right now is : Low - Burn Time 60 Minutes"
             break;
         case 3:
-            uvIndex = "3";
             uvIndex = "UV Index right now is : Moderate - Burn Time 45 Minutes"
             break;
         case 4:
-            uvIndex = "4";
             uvIndex = "UV Index right now is : Moderate - Burn Time 45 Minutes"
             break;
         case 5:
-            uvIndex = "5";
             uvIndex = "UV Index right now is : Moderate - Burn Time 45 Minutes"
             break;
         case 6:
-            uvIndex = "6";
             uvIndex = "UV Index right now is : High - Burn Time 30 Minutes"
             break;
         case 7:
-            uvIndex = "7";
             uvIndex = "UV Index right now is : High - Burn Time 30 Minutes"
             break;
         case 8:
-            uvIndex = "8";
             uvIndex = "UV Index right now is : Very High - Burn Time 15-25 Minutes"
             break;
         case 9:
-            uvIndex = "9";
             uvIndex = "UV Index right now is : Very High - Burn Time 15-25 Minutes"
             break;
         case 10:
-            uvIndex = "10";
             uvIndex = "UV Index right now is : Very High - Burn Time 15-25 Minutes"
             break;
         default:
-            uvIndex = "UV Index: " + weatherHour.uvIndex.toString();
+            uvIndex = "UV Index Not Found: " + weatherHour.uvIndex.toString();
             break;
     }
 
