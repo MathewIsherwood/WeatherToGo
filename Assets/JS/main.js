@@ -125,6 +125,11 @@ function updateWeatherHour(townName, longlat = 0) {
     }
 }
 
+/**
+ * Parse search box input string
+ * checks for comma seperated floats, i.e. latitude and longitude
+ * mostly used for testing, but could be used by the user
+ */
 function parseSearchInput(userInput) {
     // check for comma seperated values
     if (userInput.search(",") !== -1) {
@@ -221,6 +226,7 @@ function setWeather(weatherTime, longlat) {
                 setTemperatureTextArea(currentWeatherHour);
                 setUVIndexTextArea(currentWeatherHour);
                 setWeatherDescriptionAndIcon(currentWeatherHour);
+                switchBackgroundColour(currentWeatherHour.screenTemperature);
             } else if (weatherTime === "daily") {
                 const allWeatherDays = getAllWeatherTimes(data);
 
@@ -410,19 +416,19 @@ function getWeatherDescriptionAndIcon(weatherCode) {
  */
 function switchBackgroundColour(temperature) {
     if (temperature < 5) {
-        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourColdest';
+        document.getElementById('primarybackground').className = 'TemperatureBackgroundColourColdest';
     } else if (temperature >= 5 && temperature < 12) {
-        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourCold';
+        document.getElementById('primarybackground').className = 'TemperatureBackgroundColourCold';
     } else if (temperature >= 12 && temperature < 18) {
-        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourOK';
+        document.getElementById('primarybackground').className = 'TemperatureBackgroundColourOK';
     } else if (temperature >= 18 && temperature < 24) {
-        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourNice';
+        document.getElementById('primarybackground').className = 'TemperatureBackgroundColourNice';
     } else if (temperature >= 24 && temperature < 30) {
-        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourBitWarm';
+        document.getElementById('primarybackground').className = 'TemperatureBackgroundColourBitWarm';
     } else if (temperature >= 30) {
-        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourReallyWarm';
+        document.getElementById('primarybackground').className = 'TemperatureBackgroundColourReallyWarm';
     } else {
-        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourOK';
+        document.getElementById('primarybackground').className = 'TemperatureBackgroundColourOK';
     }
 }
 
