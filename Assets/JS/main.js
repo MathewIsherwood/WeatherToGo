@@ -75,7 +75,10 @@ function showError(error) {
     // if the geolocation fails, assume "London" location
     const defaultLocation = "London";
     setGPSLocation(defaultLocation);
-    updateWeatherHour(defaultLocation);
+
+    // incase postcodes API is also down, send a default lat long for london
+    const defaultLatLong = { "lat": 51.5085, "long": -0.1257 };
+    updateWeatherHour(defaultLocation, defaultLatLong);
 }
 
 /**
@@ -100,6 +103,7 @@ function getTownName(lat, long) {
         })
         .catch(error => {
             console.error('Error fetching town name:', error);
+            setGPSLocation("Couldn't find\nlocation name");
         });
 }
 
@@ -156,6 +160,20 @@ function updateWeatherHour(townName, longlat = 0) {
 }
 
 /**
+ * Update HTML with one day weather data
+ * passes through the town name and optional longitude and latitude object to set the HTML
+ */
+function updateWeatherDaily(townName, longlat = 0) {
+    const weatherTime = "daily";
+
+    if (longlat === 0) {
+        getLongLat(townName, weatherTime);
+    } else {
+        setWeather(weatherTime, longlat);
+    }
+}
+
+/**
  * Parse search box input string
  * checks for comma seperated floats, i.e. latitude and longitude
  * mostly used for testing, but could be used by the user
@@ -180,20 +198,6 @@ function parseSearchInput(userInput) {
     // we must have a town name, lets use that
     else {
         updateWeatherHour(userInput);
-    }
-}
-
-/**
- * Update HTML with one day weather data
- * passes through the town name and optional longitude and latitude object to set the HTML
- */
-function updateWeatherDaily(townName, longlat = 0) {
-    const weatherTime = "daily";
-
-    if (longlat === 0) {
-        getLongLat(townName, weatherTime);
-    } else {
-        setWeather(weatherTime, longlat);
     }
 }
 
