@@ -386,19 +386,19 @@ function getWeatherDescriptionAndIcon(weatherCode) {
         15: { topDescription: "Heavy rain", icon: "Assets/Images/heavyrain.png", bottomDescription: "Your brolly might not be enough!" },
         16: { topDescription: "Sleet shower", icon: "Assets/Images/sleet.png", bottomDescription: "Sleet by night<br />Shepards in fright!" },
         17: { topDescription: "Sleet shower", icon: "Assets/Images/sleet.png", bottomDescription: "Sleet by day<br /> Cold rain in sight!" },
-        18: { topDescription: "Sleet", icon: "Assets/Images/sleet.png", bottomDescription: "" },
-        19: { topDescription: "Hail shower", icon: "Assets/Images/hailshowernight.png", bottomDescription: "" },
-        20: { topDescription: "Hail shower", icon: "Assets/Images/hailshower.png", bottomDescription: "" },
-        21: { topDescription: "Hail", icon: "Assets/Images/hail.png", bottomDescription: "" },
-        22: { topDescription: "Light snow shower", icon: "Assets/Images/snow.png", bottomDescription: "" },
-        23: { topDescription: "Light snow shower", icon: "Assets/Images/snow.png", bottomDescription: "" },
-        24: { topDescription: "Light snow", icon: "Assets/Images/snow.png.png", bottomDescription: "" },
-        25: { topDescription: "Heavy snow shower", icon: "Assets/Images/snow.png", bottomDescription: "" },
-        26: { topDescription: "Heavy snow shower", icon: "Assets/Images/snow.png", bottomDescription: "" },
-        27: { topDescription: "Heavy snow", icon: "Assets/Images/snow.png", bottomDescription: "" },
-        28: { topDescription: "Thunder shower", icon: "Assets/Images/thundershowernight.png", bottomDescription: "" },
-        29: { topDescription: "Thunder shower", icon: "Assets/Images/thundershower.png", bottomDescription: "" },
-        30: { topDescription: "Thunder", icon: "Assets/Images/thunder.png", bottomDescription: "" }
+        18: { topDescription: "Sleet", icon: "Assets/Images/sleet.png", bottomDescription: "Warning: Heavier than usual rain!" },
+        19: { topDescription: "Hail shower", icon: "Assets/Images/hailshowernight.png", bottomDescription: "But and night, much scarier!" },
+        20: { topDescription: "Hail shower", icon: "Assets/Images/hailshower.png", bottomDescription: "Watch out for<br /> falling icicles!" },
+        21: { topDescription: "Hail", icon: "Assets/Images/hail.png", bottomDescription: "Watch out for<br /> falling icicles!" },
+        22: { topDescription: "Light snow shower", icon: "Assets/Images/snow.png", bottomDescription: "Lightly sprinkled,<br /> like in baking!" },
+        23: { topDescription: "Light snow shower", icon: "Assets/Images/snow.png", bottomDescription: "Lightly sprinkled,<br /> like in baking!" },
+        24: { topDescription: "Light snow", icon: "Assets/Images/snow.png.png", bottomDescription: "Lightly sprinkled,<br /> like in baking!" },
+        25: { topDescription: "Heavy snow shower", icon: "Assets/Images/snow.png", bottomDescription: "It's snowman weather!" },
+        26: { topDescription: "Heavy snow shower", icon: "Assets/Images/snow.png", bottomDescription: "It's snowman weather!" },
+        27: { topDescription: "Heavy snow", icon: "Assets/Images/snow.png", bottomDescription: "It's snowman weather!" },
+        28: { topDescription: "Thunder shower", icon: "Assets/Images/thundershowernight.png", bottomDescription: "Nighttime free light show possible!" },
+        29: { topDescription: "Thunder shower", icon: "Assets/Images/thundershower.png", bottomDescription: "Bring in the kites!" },
+        30: { topDescription: "Thunder", icon: "Assets/Images/thunder.png", bottomDescription: "Thor's belly is rumbling!" }
     };
     // return the description and icon for the numeric code. If the code cannot be found, return an error handling object.
     return weatherMap[weatherCode] || { topDescription: "Unknown", bottomDescription: "Unknown", icon: "Assets/Images/unknown.png" };
