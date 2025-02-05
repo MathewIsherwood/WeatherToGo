@@ -182,12 +182,12 @@ function getLongLat(placeName, weatherTime) {
         .then(data => {
             for (let i = 0; i < data.result.length; i++) {
                 if (data.result[i].local_type == "Town" || data.result[i].local_type == "City") {
-                    //console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
+                    console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
                     long = parseFloat(data.result[i].longitude).toFixed(4);
                     lat = parseFloat(data.result[i].latitude).toFixed(4);
                     let longLatObj = { "long": long, "lat": lat };
 
-                    // console.log(longLatObj);
+                    console.log(longLatObj);
                     setWeather(weatherTime, longLatObj);
 
                     break;
@@ -283,6 +283,9 @@ function setUVIndexTextArea(weatherHour) {
     let uvIndex = "";
     // get the UV index from the weather object
     switch (weatherHour.uvIndex) {
+        case 0:            
+            uvIndex = "No sun right now, UV Index is Low"
+            break;
         case 1:            
             uvIndex = "UV Index right now is : Low - Burn Time 60 Minutes"
             break;
@@ -469,7 +472,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     for (let button of buttons) {
         button.addEventListener("click", function () {
-            if (this.getAttribute("id") === "submitButton") {
+            if (this.getAttribute("id") === "toggleButton") {
+               // do nothing
+            } else if (this.getAttribute("id") === "submitButton") {
                 // get the placename from the text box
                 let userAnswer = (document.getElementById("placeName").value).toString();
                 // and get the weather data for that placename

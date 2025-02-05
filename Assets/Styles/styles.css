@@ -57,3 +57,9 @@
 #submitButton:hover{
     background-color: #f0f0f0;
 }
+
+.IconChoice{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
