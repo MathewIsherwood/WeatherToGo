@@ -33,7 +33,7 @@ function usePosition(position) {
     getTownName(latitude, longitude);
 
     //WARNING/IMPORTANT: limited API uses, un-comment when ready to deploy/use
-    // updateWeatherHour("London", { "long": longitude, "lat": latitude });
+    updateWeatherHour("London", { "long": longitude, "lat": latitude });
 }
 
 /**
