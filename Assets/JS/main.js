@@ -31,6 +31,8 @@ function usePosition(position) {
 
     console.log("Latitude: " + latitude + " Longitude: " + longitude);
     getTownName(latitude, longitude);
+
+    //WARNING/IMPORTANT: limited API uses, un-comment when ready to deploy/use
     // updateWeatherHour("London", { "long": longitude, "lat": latitude });
 }
 
@@ -293,13 +295,6 @@ function setFiveDayWeatherDescriptionAndIcon(weatherDays) {
     }
 }
 
-// const text-blue-500; // Coldest
-// const text-cyan-500; // Cold
-// const text-sky-500; // OK
-// const text-yellow-500; // Nice
-// const text-orange-500; // Bit Warm
-// const text-red-500; // Really Warm
-
 /**
  * Weather Description and Icon object
  * passes through the weather code, and grabs the relevant description and icon
@@ -343,83 +338,12 @@ function getWeatherDescriptionAndIcon(weatherCode) {
     return weatherMap[weatherCode] || { description: "Unknown", icon: "Assets/Images/unknown.png" };
 }
 
-/**
- * Loading Screen
- * displays a loading screen while geo-location is being fetched
- * takes 1-8 seconds...
- */
-function loadingScreen() {
-    const iconDisplayArea = document.getElementById('IconDisplayArea');
-    iconDisplayArea.innerHTML = `
-        <div class="IconDisplayArea bg-white p-6 rounded-lg shadow-lg">
-            <h2>Loading...</h2>
-            <div class="loadingbaby">
-                <img src="Assets/Images/loadingbaby.jpg" alt="Loading...">
-            </div>
-            <div class="WeatherDescription"></div>
-            <img class="WeatherIcon" src="" alt="Weather Icon">
-        </div>
-    `;
-}
-
-
-/**
- * Event listener
- * listens for location to be submitted via enter or button click
- */
-const placeName = document.getElementById('placeName');
-placeName.addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        // get the weather data for the placename
-        updateWeatherHour(placeName.value);
-    }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    let buttons = document.getElementsByTagName("button");
-
-    for (let button of buttons) {
-        button.addEventListener("click", function () {
-            if (this.getAttribute("data-type") === "submit") {
-                // get the placename from the text box
-                let userAnswer = (document.getElementById("placeName").value).toString();
-                // and get the weather data for that placename
-                updateWeatherHour(userAnswer);
-            } else {
-                // TODO: display this error message to the user
-                ErrorEvent("Unknown place submitted");
-            }
-        });
-    }
-});
-
-// Toggle between GPS and Location Search
-/**
- * Event Listener
- * toggle button is clicked to switch between GPS location and searchbar
- */
-document.getElementById('toggleButton').addEventListener('click', function () {
-    // TODO: when toggling back to GPS, if the gps previously failed
-    // (perhaps user refused), we need to try again, otherwise use existing data to save load time
-    var searchbar = document.getElementById('searchbar');
-    var gpsLocation = document.getElementById('GPSlocation');
-    if (searchbar.style.display === 'none') {
-        searchbar.style.display = 'flex';
-        gpsLocation.style.display = 'none';
-    } else {
-        searchbar.style.display = 'none';
-        gpsLocation.style.display = 'flex';
-    }
-});
-
-
-// updateWeatherHour("Bristol");
-// Run the geolocation service, and set the weather for that location
-getCurrentLocation();
-
-// Initialize with GPS location visible and search bar hidden
-document.getElementById('searchbar').style.display = 'none';
-document.getElementById('GPSlocation').style.display = 'flex';
+// const text-blue-500; // Coldest
+// const text-cyan-500; // Cold
+// const text-sky-500; // OK
+// const text-yellow-500; // Nice
+// const text-orange-500; // Bit Warm
+// const text-red-500; // Really Warm
 
 /**
  * Background Temperature to Colour
@@ -451,3 +375,76 @@ function switchBackgroundColour(weatherCondition) {
     }
 }
 
+/**
+ * Loading Screen
+ * displays a loading screen while geo-location is being fetched
+ * takes 1-8 seconds...
+ */
+function loadingScreen() {
+    const iconDisplayArea = document.getElementById('IconDisplayArea');
+    iconDisplayArea.innerHTML = `
+        <div class="IconDisplayArea bg-white p-6 rounded-lg shadow-lg">
+            <h2>Loading...</h2>
+            <div class="loadingbaby">
+                <img src="Assets/Images/loadingbaby.jpg" alt="Loading...">
+            </div>
+            <div class="WeatherDescription"></div>
+            <img class="WeatherIcon" src="" alt="Weather Icon">
+        </div>
+    `;
+}
+
+/**
+ * Event listener
+ * listens for location to be submitted via enter or button click
+ */
+const placeName = document.getElementById('placeName');
+placeName.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        // get the weather data for the placename
+        updateWeatherHour(placeName.value);
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    let buttons = document.getElementsByTagName("button");
+
+    for (let button of buttons) {
+        button.addEventListener("click", function () {
+            if (this.getAttribute("data-type") === "submit") {
+                // get the placename from the text box
+                let userAnswer = (document.getElementById("placeName").value).toString();
+                // and get the weather data for that placename
+                updateWeatherHour(userAnswer);
+            } else {
+                // TODO: display this error message to the user
+                ErrorEvent("Unknown place submitted");
+            }
+        });
+    }
+});
+
+/**
+ * Event Listener
+ * toggle button is clicked to switch between GPS location and searchbar
+ */
+document.getElementById('toggleButton').addEventListener('click', function () {
+    // TODO: when toggling back to GPS, if the gps previously failed
+    // (perhaps user refused), we need to try again, otherwise use existing data to save load time
+    var searchbar = document.getElementById('searchbar');
+    var gpsLocation = document.getElementById('GPSlocation');
+    if (searchbar.style.display === 'none') {
+        searchbar.style.display = 'flex';
+        gpsLocation.style.display = 'none';
+    } else {
+        searchbar.style.display = 'none';
+        gpsLocation.style.display = 'flex';
+    }
+});
+
+// Run the geolocation service, and set the weather for that location
+getCurrentLocation();
+
+// Initialize with GPS location visible and search bar hidden
+document.getElementById('searchbar').style.display = 'none';
+document.getElementById('GPSlocation').style.display = 'flex';
