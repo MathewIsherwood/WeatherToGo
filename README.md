@@ -17,45 +17,110 @@
 - [Manual Tests](#manual-tests)
 - [Validator Testing](#validator-testing)
 
-## Project Overview
-To create a website `Weather To Go`. This will quickly inform the user what they need to know of the weather to come.
 
-[Project Link](https://github.com/MathewIsherwood/WeatherToGo)
+
+## Project Overview
+
+Weather To Go is a single-page application designed to provide users with real-time weather updates and forecasts for different locations. The application allows users to check the current weather, receive weather alerts, and get clothing suggestions based on the weather conditions.
+
+# Purpose
+The purpose of Weather To Go is to help users plan their day by providing accurate and timely weather information. 
+Whether you need an umbrella or just want to grab your sunglasses, this tool ensures you are prepared for the weather conditions.
+
+### User Value and Benefits
+- **Real-time Weather Updates**: Users can get the latest weather information for their current location or any other location they choose.
+- **Weather Alerts**: The application provides alerts for specific weather conditions, helping users prepare for rain, snow, or extreme temperatures.
+- **Clothing Suggestions**: Based on the weather forecast, users receive suggestions on what to wear, ensuring they are dressed comfortably for the day.
+- **Interactive Forecasts**: Users can view hourly and daily weather forecasts, allowing them to plan ahead for the day or week.
+- **Location Flexibility**: Users can easily switch between GPS-based location tracking and manual location search to get weather updates for different areas.
+
 
 [Back to Contents](#contents)
 
 ## Goals
-To create a quick and easy resources for someone to be able to tell what weather situations they will encounter when they leave where they are. Never again should you be caught out without an umbrella or suncream!
+
+- **Provide Accurate Weather Information**: Ensure users have access to real-time weather updates for their current location or any location they choose.
+- **Enhance User Preparedness**: Help users prepare for the day by providing weather alerts and clothing suggestions based on the forecast.
+- **Improve User Experience**: Create an intuitive and user-friendly interface that allows users to easily navigate and access weather information.
+- **Support Location Flexibility**: Allow users to switch between GPS-based location tracking and manual location search to get weather updates for different areas.
+- **Interactive Forecasts**: Offer interactive hourly and daily weather forecasts to help users plan ahead for the day or week.
+- **Seamless Integration**: Ensure the application integrates smoothly with various devices and platforms for a consistent user experience.
 
 [Back to Contents](#contents)
 
 ## User Stories
 
-- As a user, I want to see the current weather at my location so that I can quickly assess the conditions outside.
-- As a user, I want to be alerted if I need specific items like an umbrella, suncream, or a jacket based on the weather forecast so that I can prepare appropriately before heading out.
-- As a user, I want to receive suggestions for what to wear based on the weather, so I can dress comfortably for the day.
-- As a user, I want to see hourly or daily weather forecasts so I can plan ahead for the day or week, ensuring I bring the right items.
-- As a user, I want to have the option to enter a different location and get weather recommendations for that area, in case I’m traveling or want to check the weather elsewhere.
+
+
+- **Current Weather**: As a user, I want to see the current weather at my location so that I can quickly assess the conditions outside.
+- **Weather Alerts**: As a user, I want to be alerted if I need specific items like an umbrella, sunscreen, or a jacket based on the weather forecast so that I can prepare appropriately before heading out.
+- **Clothing Suggestions**: As a user, I want to receive suggestions for what to wear based on the weather, so I can dress comfortably for the day.
+- **Forecast Access**: As a user, I want to see hourly or daily weather forecasts so I can plan ahead for the day or week, ensuring I bring the right items.
+- **Location Input**: As a user, I want to have the option to enter a different location and get weather recommendations for that area, in case I’m traveling or want to check the weather elsewhere.
+
 
 [Back to Contents](#contents)
 
 ## Wireframes
 
+### Mockups Overview
+Mockups provide a detailed alignment that includes colors, fonts, images, and other elements, reflecting the final product more closely.
+
+1. **Home Screen Wireframe**
+   - **Description**: The landing page displays the current weather conditions, with a large temperature display, icons for conditions (e.g., sunny, rainy), and a location input/search bar at the top.
+   - **Changes Made**: Initially included a multi-tab layout, which was simplified to a single scrollable page for better user experience and to avoid overwhelming the user.
+
+2. **Weather Alert Clothing Wireframe**
+   - **Description**: This screen shows alerts for necessary items (umbrella, sunscreen, jacket) based on the current weather. Each item has a checkbox for user acknowledgment.
+   - **Changes Made**: The initial version contained only text-based suggestions, but switching to visual representation helped users gravitate more towards recommended outfits.
+
+3. **Clothing Suggestions Screen Wireframe**
+   - **Description**: Users receive personalized clothing suggestions based on weather conditions, with images of outfits for better visual guidance.
+   - **Changes Made**: The initial concept of a static list view was replaced with an interactive format for more engaging user interaction.
+
+4. **Hourly/Daily Forecast Screen Wireframe**
+   - **Description**: Displays an interactive forecast graph with hourly/daily segments, allowing users to swipe between forecasts easily.
+   - **Changes Made**: The initial concept of a static list view was replaced with an interactive format for more engaging user interaction.
+
+5. **Location Input and Selection Screen Wireframe**
+   - **Description**: A dedicated section where users can enter or select locations for weather updates, featuring a search bar and a list of saved locations.
+   - **Changes Made**: The initial design was simplified to make location input and selection more intuitive and user-friendly.
+
 
 [Back to Contents](#contents)
 
-## Project Structure
 ```
+## Project Structure
+
 The project is organized as follows:
 
 WeatherToGo/
+├──assets
+├──images/
+│    ├──clear_moon_night.png
+│    ├──cloud_sun_storm.png
+│    ├──...
+│ ├──JS 
+│    ├──main.js
+│ ├──styles/
+│   ├──style.css
+├──index.html
 ├── README.md
+
 ```
 [Back to Contents](#contents)
 
+
 ## Pages
-```
-```
+
+### Home Page
+- **Description**: The home page displays the current weather conditions, including temperature, weather icons, and a brief weather description. It also features a location input/search bar and a toggle button to switch between GPS-based location tracking and manual location search.
+- **User Value**: Provides users with real-time weather updates and allows them to easily switch between different locations.
+
+### 5 Day Forecast Page
+- **Description**: This section provides a detailed weather forecast for the next five days, including daily high and low temperatures, weather icons, and brief weather descriptions.
+- **User Value**: Helps users plan ahead for the week by providing a comprehensive weather forecast.
+
 
 [Back to Contents](#contents)
 
@@ -64,12 +129,53 @@ WeatherToGo/
 styles.css
 ```
 
+The styles for the Weather To Go application are defined in the styles.css ile. Below are the descriptions of the main styles used:
+
+- **Temperature Background Colours**:
+  - `.TemperatureBackgroundColour`: Default background color.
+  - `.TemperatureBackgroundColourColdest`: Background color for the coldest temperatures.
+  - `.TemperatureBackgroundColourCold`: Background color for cold temperatures.
+  - `.TemperatureBackgroundColourOK`: Background color for moderate temperatures.
+  - `.TemperatureBackgroundColourNice`: Background color for nice weather.
+  - `.TemperatureBackgroundColourBitWarm`: Background color for slightly warm temperatures.
+  - `.TemperatureBackgroundColourReallyWarm`: Background color for very warm temperatures.
+
+- **Text Areas**:
+  - `.TemperatureTextArea`: Styles for displaying the temperature text.
+  - `.UVIndexTextArea`: Styles for displaying the UV index text.
+  - `.MainAreaTextBottom`: Styles for the bottom text area in the main weather display.
+
+- **Search Bar and Button**:
+  - `#searchbar`: Styles for the search bar.
+  - `#submitButton`: Styles for the submit button.
+  - `#submitButton:hover`: Hover effect for the submit button.
+
+
+
 [Back to Contents](#contents)
 
 ## Images
-```
-assets/images/
-```
+
+### Home Screen
+![Home Screen](Assets/Images/sunny.png)
+- **Description**: The home screen displays the current weather conditions with a sunny weather icon.
+
+### Weather Alert
+![Weather Alert](Assets/Images/rain.png)
+- **Description**: The weather alert screen shows an alert for rainy weather.
+
+### Clothing Suggestions
+![Clothing Suggestions](Assets/Images/snow.png)
+- **Description**: The clothing suggestions screen provides recommendations for snowy weather.
+
+### Hourly/Daily Forecast
+![Hourly/Daily Forecast](Assets/Images/cloudy.png)
+- **Description**: The hourly/daily forecast screen displays the weather forecast with a cloudy weather icon.
+
+### Location Input and Selection
+![Location Input and Selection](Assets/Images/cloud_sun_storm.png)
+- **Description**: The location input and selection screen allows users to enter or select locations for weather updates.
+
 [Back to Contents](#contents)
 
 ## Dependencies
