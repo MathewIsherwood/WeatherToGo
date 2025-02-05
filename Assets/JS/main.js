@@ -2,6 +2,10 @@ function getAllParameters(weatherData) {
     return weatherData.parameters;
 }
 
+function getAPIKey() {
+    return `eyJ4NXQjUzI1NiI6Ik5XVTVZakUxTkRjeVl6a3hZbUl4TkdSaFpqSmpOV1l6T1dGaE9XWXpNMk0yTWpRek5USm1OVEE0TXpOaU9EaG1NVFJqWVdNellXUm1ZalUyTTJJeVpBPT0iLCJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ==.eyJzdWIiOiJtb2d0aGVtb3NxdWl0b0BnbWFpbC5jb21AY2FyYm9uLnN1cGVyIiwiYXBwbGljYXRpb24iOnsib3duZXIiOiJtb2d0aGVtb3NxdWl0b0BnbWFpbC5jb20iLCJ0aWVyUXVvdGFUeXBlIjpudWxsLCJ0aWVyIjoiVW5saW1pdGVkIiwibmFtZSI6InNpdGVfc3BlY2lmaWMtMDViNTQ1ODAtYWYwZS00ZmJjLWI1ZjMtMmE5ZmViOWVlYjdjIiwiaWQiOjkzMzEsInV1aWQiOiI1NDgxMTc1Mi01NjlkLTQ4MWMtODU2Ny1iYTVhN2RlZGIzMzIifSwiaXNzIjoiaHR0cHM6XC9cL2FwaS1tYW5hZ2VyLmFwaS1tYW5hZ2VtZW50Lm1ldG9mZmljZS5jbG91ZDo0NDNcL29hdXRoMlwvdG9rZW4iLCJ0aWVySW5mbyI6eyJ3ZGhfc2l0ZV9zcGVjaWZpY19mcmVlIjp7InRpZXJRdW90YVR5cGUiOiJyZXF1ZXN0Q291bnQiLCJncmFwaFFMTWF4Q29tcGxleGl0eSI6MCwiZ3JhcGhRTE1heERlcHRoIjowLCJzdG9wT25RdW90YVJlYWNoIjp0cnVlLCJzcGlrZUFycmVzdExpbWl0IjowLCJzcGlrZUFycmVzdFVuaXQiOiJzZWMifX0sImtleXR5cGUiOiJQUk9EVUNUSU9OIiwic3Vic2NyaWJlZEFQSXMiOlt7InN1YnNjcmliZXJUZW5hbnREb21haW4iOiJjYXJib24uc3VwZXIiLCJuYW1lIjoiU2l0ZVNwZWNpZmljRm9yZWNhc3QiLCJjb250ZXh0IjoiXC9zaXRlc3BlY2lmaWNcL3YwIiwicHVibGlzaGVyIjoiSmFndWFyX0NJIiwidmVyc2lvbiI6InYwIiwic3Vic2NyaXB0aW9uVGllciI6IndkaF9zaXRlX3NwZWNpZmljX2ZyZWUifV0sInRva2VuX3R5cGUiOiJhcGlLZXkiLCJpYXQiOjE3Mzg2NjU1MTksImp0aSI6IjlmMDQ2MWJiLWFmODctNDc3MC1hYzRhLTMxN2RiODE1NjQxYyJ9.AEFlnjZrvfSlDBzGF90mZb5hH9yXQ-RLkNKBzOOJOs-tKJctS05iLIgL0SjlohsskiYhLphVG4tZ4qgqnR2X97mGjXjtzYALoaDQYI1IBXBN9MEAIdoqhPAMghzlkgOSzjyc7_NpB8pALsqOzHVdediOr4TVmQv04lEfwpPs8Lp2ALByGadWDzSBBzN-qLktCjRS0H-oHDCC2qHoKTF-p3svvyvah9hCWTG-HaWK1JcsEpAPIqD-uu2KtOxkSUq097WPKpNno1dybsISx6uBZSVeP7ejP0sH16omqk03fPHAgNv9aE5buhmTkCQDO46X-VBk_zmF9BNtqTbNUkes3g==`;
+}
+
 // function getParameterSymbolText(parameterName, allParameters) {
 //     for (let parameter of allParameters) {
 //         if (parameter.name === parameterName) {
@@ -49,7 +53,7 @@ function showError(error) {
     }
 }
 
-function getAllWeatherHours(weatherData) {
+function getAllWeatherTimes(weatherData) {
     return weatherData.features[0].properties.timeSeries;
 }
 
@@ -63,14 +67,12 @@ function getOneWeatherHour(dateTime, weatherData) {
     //error handling return here.
 }
 
-// Fetch request to get weather data from the API
+// Fetch request to get hourly weather data from the API
 function updateWeatherHour(townName) {
-    // getCurrentLocation();
-
     const url = `https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/hourly`;
-    const apikey = `eyJ4NXQjUzI1NiI6Ik5XVTVZakUxTkRjeVl6a3hZbUl4TkdSaFpqSmpOV1l6T1dGaE9XWXpNMk0yTWpRek5USm1OVEE0TXpOaU9EaG1NVFJqWVdNellXUm1ZalUyTTJJeVpBPT0iLCJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ==.eyJzdWIiOiJtb2d0aGVtb3NxdWl0b0BnbWFpbC5jb21AY2FyYm9uLnN1cGVyIiwiYXBwbGljYXRpb24iOnsib3duZXIiOiJtb2d0aGVtb3NxdWl0b0BnbWFpbC5jb20iLCJ0aWVyUXVvdGFUeXBlIjpudWxsLCJ0aWVyIjoiVW5saW1pdGVkIiwibmFtZSI6InNpdGVfc3BlY2lmaWMtMDViNTQ1ODAtYWYwZS00ZmJjLWI1ZjMtMmE5ZmViOWVlYjdjIiwiaWQiOjkzMzEsInV1aWQiOiI1NDgxMTc1Mi01NjlkLTQ4MWMtODU2Ny1iYTVhN2RlZGIzMzIifSwiaXNzIjoiaHR0cHM6XC9cL2FwaS1tYW5hZ2VyLmFwaS1tYW5hZ2VtZW50Lm1ldG9mZmljZS5jbG91ZDo0NDNcL29hdXRoMlwvdG9rZW4iLCJ0aWVySW5mbyI6eyJ3ZGhfc2l0ZV9zcGVjaWZpY19mcmVlIjp7InRpZXJRdW90YVR5cGUiOiJyZXF1ZXN0Q291bnQiLCJncmFwaFFMTWF4Q29tcGxleGl0eSI6MCwiZ3JhcGhRTE1heERlcHRoIjowLCJzdG9wT25RdW90YVJlYWNoIjp0cnVlLCJzcGlrZUFycmVzdExpbWl0IjowLCJzcGlrZUFycmVzdFVuaXQiOiJzZWMifX0sImtleXR5cGUiOiJQUk9EVUNUSU9OIiwic3Vic2NyaWJlZEFQSXMiOlt7InN1YnNjcmliZXJUZW5hbnREb21haW4iOiJjYXJib24uc3VwZXIiLCJuYW1lIjoiU2l0ZVNwZWNpZmljRm9yZWNhc3QiLCJjb250ZXh0IjoiXC9zaXRlc3BlY2lmaWNcL3YwIiwicHVibGlzaGVyIjoiSmFndWFyX0NJIiwidmVyc2lvbiI6InYwIiwic3Vic2NyaXB0aW9uVGllciI6IndkaF9zaXRlX3NwZWNpZmljX2ZyZWUifV0sInRva2VuX3R5cGUiOiJhcGlLZXkiLCJpYXQiOjE3Mzg2NjU1MTksImp0aSI6IjlmMDQ2MWJiLWFmODctNDc3MC1hYzRhLTMxN2RiODE1NjQxYyJ9.AEFlnjZrvfSlDBzGF90mZb5hH9yXQ-RLkNKBzOOJOs-tKJctS05iLIgL0SjlohsskiYhLphVG4tZ4qgqnR2X97mGjXjtzYALoaDQYI1IBXBN9MEAIdoqhPAMghzlkgOSzjyc7_NpB8pALsqOzHVdediOr4TVmQv04lEfwpPs8Lp2ALByGadWDzSBBzN-qLktCjRS0H-oHDCC2qHoKTF-p3svvyvah9hCWTG-HaWK1JcsEpAPIqD-uu2KtOxkSUq097WPKpNno1dybsISx6uBZSVeP7ejP0sH16omqk03fPHAgNv9aE5buhmTkCQDO46X-VBk_zmF9BNtqTbNUkes3g==`;
+    const apikey = getAPIKey();
 
-    let longlat = getLongLat(townName);
+    let longlat = [getLongLat(townName)];
 
     //fetch written by AI
     fetch(`${url}?latitude=${longlat[0]}&longitude=${longlat[1]}`, {
@@ -80,20 +82,60 @@ function updateWeatherHour(townName) {
             'apikey': apikey
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        // Process the weather data here
-        const currentWeatherHour = getOneWeatherHour(getCurrentHourISO(), getAllWeatherHours(data));
-        
-        setTemperatureTextArea(currentWeatherHour);
-        setUVIndexTextArea(currentWeatherHour);
-        setWeatherDescriptionAndIcon(currentWeatherHour);
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Process the weather data here
+            const currentWeatherHour = getOneWeatherHour(getCurrentHourISO(), getAllWeatherTimes(data));
 
+            setTemperatureTextArea(currentWeatherHour);
+            setUVIndexTextArea(currentWeatherHour);
+            setWeatherDescriptionAndIcon(currentWeatherHour);
+            console.log(currentWeatherHour);
+
+        })
+        .catch(error => {
+            console.error('Error fetching weather data:', error);
+        });
+}
+
+// Fetch request to get daily weather data from the API
+function updateWeatherDaily(townName) {
+    // getCurrentLocation();
+
+    const url = `https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/daily`;
+    const apikey = getAPIKey();
+
+    let longlat = getLongLat(townName);
+    if (longlat === undefined) {
+        console.log("Location not found, defaulting to Bristol");
+        longlat = [51.4545, -2.5879];
+    }
+
+    //fetch written by AI
+    fetch(`${url}?latitude=${longlat[0]}&longitude=${longlat[1]}`, {
+        method: 'GET',
+        headers: {
+            'accept': 'application/json',
+            'apikey': apikey
+        }
     })
-    .catch(error => {
-        console.error('Error fetching weather data:', error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Process the weather data here
+            const allWeatherDays = getAllWeatherTimes(data);
+
+            setFiveDayTemperatureTextArea(allWeatherDays);
+            setFiveDayWeatherDescriptionAndIcon(allWeatherDays);
+            // setTemperatureTextArea(currentWeatherHour);
+            // setUVIndexTextArea(currentWeatherHour);
+            // setWeatherDescriptionAndIcon(currentWeatherHour);
+
+        })
+        .catch(error => {
+            console.error('Error fetching weather data:', error);
+        });
 }
 
 // get the current hour (rounded to nearest hour) in ISO format
@@ -123,6 +165,9 @@ function getCurrentHourISO() {
     return textTime;
 }
 
+/**
+ * Current hour forecast section
+ */
 function setTemperatureTextArea(weatherHour) {
     const temperature = Math.floor(weatherHour.screenTemperature).toString() + "°C";
     document.getElementsByClassName("TemperatureTextArea")[0].innerText = temperature;
@@ -137,6 +182,32 @@ function setWeatherDescriptionAndIcon(weatherHour) {
     const weatherInfo = getWeatherDescriptionAndIcon(weatherHour.SignificantWeatherCode);
     document.getElementsByClassName("WeatherDescription")[0].innerText = weatherInfo.description;
     document.getElementsByClassName("WeatherIcon")[0].src = weatherInfo.icon;
+}
+
+/**
+ * Five Day Forecast section
+ */
+function setFiveDayTemperatureTextArea(weatherDays) {
+    //loop for five days of data, exit out on sixth iteration
+    //we skip the zeroith in the array, as that is yesterday's data
+    let temperature = "";
+    for (let i = 1; i < 6; i++) {
+        temperature = Math.floor(weatherDays[i].dayMaxScreenTemperature).toString() + "°C";
+        //TODO: currently the dom is on index.html, not 5dayforecast.html
+        document.getElementsByClassName(`Day${i}Temp`)[0].innerText = temperature;
+    }
+}
+
+function setFiveDayWeatherDescriptionAndIcon(weatherDays) {
+    //loop for five days of data, exit out on sixth iteration
+    //we skip the zeroith in the array, as that is yesterday's data
+    let weatherInfo = "";
+    for (let i = 1; i < 6; i++) {
+        weatherInfo = getWeatherDescriptionAndIcon(weatherDays[i].daySignificantWeatherCode);
+        //TODO: currently the dom is on index.html, not 5dayforecast.html
+        document.getElementsByClassName(`Day${i}Weather`)[0].innerText = weatherInfo.description;
+        document.getElementsByClassName(`Day${i}Icon`)[0].src = weatherInfo.icon;
+    }
 }
 
 // const text-blue-500; // Coldest
@@ -206,22 +277,24 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-
-let long = 0;
-let lat = 0;
-
- //get long - lat for places in the uk based on the name of the place
- function getLongLat(placeName) {
-     const url = `https:api.postcodes.io/places?query=${placeName}`;
-     //console.log('Fetching URL:', url);
-     fetch(url)
-         .then(response => response.json())
-         .then(data => {
+//get long - lat for places in the uk based on the name of the place
+function getLongLat(placeName) {
+    const url = `https:api.postcodes.io/places?query=${placeName}`;
+    let long = 0;
+    let lat = 0;
+    console.log('Fetching URL:', url);
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
             for (let i = 0; i < data.result.length; i++) {
                 if (data.result[i].local_type == "Town" || data.result[i].local_type == "City") {
-                    //console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
+                    console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
                     lat = data.result[i].latitude;
                     long = data.result[i].longitude;
+                    console.log(`Place: ${data.result[i].name_1}, Longitude: ${long}, Latitude: ${lat}`);
+                    lat = parseInt(data.result[i].latitude);
+                    long = parseInt(data.result[i].longitude);
+                    console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
                     return [lat, long];
                     /*
                     document.getElementById('latitude').value = lat;
@@ -232,50 +305,29 @@ let lat = 0;
                     break;
                 }
             }
-         })
-         .catch(error => {
-             console.error('Error:', error);
-         });
- }
-
-// const allWeatherHours = getAllWeatherHours(bristolData);
-// console.log(getOneWeatherHour(getCurrentHourISO(), allWeatherHours));
-
-// const parameters = getAllParameters(bristolData);
-// const currentWeatherHour = getOneWeatherHour(getCurrentHourISO(), allWeatherHours);
-
-// setTemperatureTextArea(currentWeatherHour);
-// setUVIndexTextArea(currentWeatherHour);
-
-// getCurrentLocation();
-
-
-updateWeatherHour("Bristol");
-
-
-// Ensures that the background of the page changes depending on temperature
-function switchBackgroundColour(weatherCondition) {
-    switch (weatherCondition) {
-        case 'Coldest':
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourColdest';
-            break;
-        case 'Cold':
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourCold';
-            break;
-        case 'OK':
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourOK';
-            break;
-        case 'Nice':
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourNice';
-            break;
-        case 'BitWarm':
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourBitWarm';
-            break;
-        case 'ReallyWarm':
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourReallyWarm';
-            break;
-        default:
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColour';
-            break;
-    }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        }); 
+        console.log([lat, long]);       
 }
+
+updateWeatherHour("Burnley");
+
+
+// Toggle between GPS and Location Search
+
+document.getElementById('toggleButton').addEventListener('click', function() {
+    var searchbar = document.getElementById('searchbar');
+    var gpsLocation = document.getElementById('GPSlocation');
+    if (searchbar.style.display === 'none') {
+        searchbar.style.display = 'flex';
+        gpsLocation.style.display = 'none';
+    } else {
+        searchbar.style.display = 'none';
+        gpsLocation.style.display = 'flex';
+    }
+});
+// Initialize with searchbar visible and GPS location hidden
+document.getElementById('searchbar').style.display = 'flex';
+document.getElementById('GPSlocation').style.display = 'none';
