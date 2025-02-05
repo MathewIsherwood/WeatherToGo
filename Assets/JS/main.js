@@ -20,19 +20,19 @@ function getAPIKey() {
 function getCurrentLocation() {
     let currentLocationObj = {};
     if (navigator.geolocation) {
-        currentLocationObj = navigator.geolocation.getCurrentPosition(usePosition, showError);
+        loadingScreen();
+        navigator.geolocation.getCurrentPosition(usePosition, showError);
     } else {
         console.log("Geolocation is not supported by this browser.");
     }
-
-    console.log(currentLocationObj);
 }
 
 function usePosition(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 
-
+    console.log("Latitude: " + latitude + " Longitude: " + longitude);
+    updateWeatherHour("London", { "long": longitude, "lat": latitude });
 }
 
 //geolocation error handling - w3schools
@@ -235,7 +235,7 @@ function setUVIndexTextArea(weatherHour) {
 }
 
 function setWeatherDescriptionAndIcon(weatherHour) {
-    const weatherInfo = getWeatherDescriptionAndIcon(weatherHour.SignificantWeatherCode);
+    const weatherInfo = getWeatherDescriptionAndIcon(weatherHour.significantWeatherCode);
     document.getElementsByClassName("WeatherDescription")[0].innerText = weatherInfo.description;
     document.getElementsByClassName("WeatherIcon")[0].src = weatherInfo.icon;
 }
@@ -333,8 +333,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-updateWeatherHour("Bristol");
-
+// updateWeatherHour("Bristol");
+// getCurrentLocation();
 
 // Toggle between GPS and Location Search
 
