@@ -126,7 +126,7 @@ function setWeather(weatherTime, longlat) {
     const apikey = getAPIKey();
 
     //fetch written by AI
-    fetch(`${url}?latitude=${longlat.long}&longitude=${longlat.lat}`, {
+    fetch(`${url}?latitude=${longlat.lat}&longitude=${longlat.long}`, {
         method: 'GET',
         headers: {
             'accept': 'application/json',
@@ -333,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-updateWeatherHour("Burnley");
+updateWeatherHour("Bristol");
 
 
 // Toggle between GPS and Location Search
