@@ -236,10 +236,10 @@ function setUVIndexTextArea(weatherHour) {
 
 function setWeatherDescriptionAndIcon(weatherHour) {
     const weatherInfo = getWeatherDescriptionAndIcon(weatherHour.significantWeatherCode);
-    document.getElementsByClassName("WeatherDescription")[0].innerText = weatherInfo.description;
-    document.getElementsByClassName("WeatherIcon")[0].src = weatherInfo.icon;
+    document.getElementById("BottomTextArea").innerText = weatherInfo.description;
+    document.getElementById("MainIcon").src = weatherInfo.icon;
+    document.getElementById("MainIcon").innerHTML = `<img src="${weatherInfo.icon}" alt="Weather Icon">`;
 }
-
 /**
  * Five Day Forecast section
  */
@@ -274,23 +274,27 @@ function setFiveDayWeatherDescriptionAndIcon(weatherDays) {
 // const text-red-500; // Really Warm
 
 function getWeatherDescriptionAndIcon(weatherCode) {
+    console.log("weatherCode"+weatherCode);
     const weatherMap = {
-        0: { description: "Clear", icon: "Assets/images/clear_moon_night.png" },
-        1: { description: "Partly Cloudy", icon: "Assets/Images/Assets/Images/cloudy_sunny.png" },
-        2: { description: "Cloudy", icon: "Assets/ImagesAssets/Images/cloudy.png" },
-        3: { description: "Rain", icon: "Assets/Images/Assets/Images/rain.png" },
-        7: { description: "Snow", icon: "Assets/Images/Assets/Images/snow.png" },
+        0: { description: "Clear", icon: "Assets/Images/clear_moon_night.png" },
+        1: { description: "Partly Cloudy", icon: "Assets/Images/cloudy_sunny.png" },
+        2: { description: "Cloudy", icon: "Assets/Images/cloudy.png" },
+        3: { description: "Rain", icon: "Assets/Images/rain.png" },
+        7: { description: "Snow", icon: "Assets/Images/snow.png" },
         8: { description: "Thunderstorm", icon: "Assets/Images/storm_thunder.png" },
+        9: { description: "Light rain shower", icon: "Assets/Images/rain.png" },
+        10: { description: "Light rain shower", icon: "Assets/Images/rain.png" },
+        11: { description: "Drizzle", icon: "Assets/Images/rain.png" },
         12: { description: "Fog", icon: "Assets/Images/fogy.png" },
         15: { description: "Windy", icon: "Assets/Images/windy.png" },
-        20: { description: "windy_cloud", icon: "assets/images/cloudy_windy.png" },
+        20: { description: "windy_cloud", icon: "Assets/Images/cloudy_windy.png" },
         21: { description: "windy_rain", icon: "Assets/Images/coud_sunny.png" },
-        22: { description: "sun", icon: "assets/images/sun.png" },
-        23: { description: "sunset", icon: "assets/images/sunset.png" },
-        24: { description: "sunraise", icon: "assets/images/sunraise.png" },
-        25: { description: "umbderella", icon: "assets/images/umbrella.png" },
-        26: { description: "cloud_sun_storm", icon: "assets/images/cloudy_storm.png" },
-        27: { description: "cloud_sun_rain", icon: "assets/images/cloudy_rain.png" },
+        22: { description: "sun", icon: "Assets/Images/sun.png" },
+        23: { description: "sunset", icon: "Assets/Images/sunset.png" },
+        24: { description: "sunraise", icon: "Assets/Images/sunraise.png" },
+        25: { description: "umbderella", icon: "Assets/Images/umbrella.png" },
+        26: { description: "cloud_sun_storm", icon: "Assets/Images/cloudy_storm.png" },
+        27: { description: "cloud_sun_rain", icon: "Assets/Images/cloudy_rain.png" },
     };
     return weatherMap[weatherCode] || { description: "Unknown", icon: "Assets/Images/unknown.png" };
 }
