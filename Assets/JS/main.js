@@ -495,26 +495,54 @@ function switchBackgroundColour(temperature) {
     } else {
         document.getElementById('primarybackground').className = 'TemperatureBackgroundColourOK';
     }
+
+    switchTextColour();
+}
+
+/**
+ * Text colour change
+ * changes the text colour depending on the temperature at the location
+ * this is done to improve contrast between the text and the background
+ */
+function switchTextColour() {
+    const backgroundColour = document.getElementById('primarybackground').className;
+
+    // add the "text-white" class, when the background is dark blue
+    if (backgroundColour === 'TemperatureBackgroundColourColdest') {
+        document.getElementById('placeNameLabel').classList.add("text-white");
+        document.getElementById('GPSLabel').classList.add("text-white");
+        document.getElementById('GPSLocation').classList.add("text-white");
+        document.getElementById('TemperatureDisplay').classList.add("text-white");
+        document.getElementById('UVIndexDisplay').classList.add("text-white");
+    } else {
+        // remove the "text-white" class, when the background is not dark blue
+        document.getElementById('placeNameLabel').classList.remove("text-white");
+        document.getElementById('GPSLabel').classList.remove("text-white");
+        document.getElementById('GPSLocation').classList.remove("text-white");
+        document.getElementById('TemperatureDisplay').classList.remove("text-white");
+        document.getElementById('UVIndexDisplay').classList.remove("text-white");
+    }
 }
 
 /**
  * Loading Screen
  * displays a loading screen while geo-location is being fetched
  * takes 1-8 seconds...
+ * Currently redundant, please consider deleting
  */
-function loadingScreen() {
-    const iconDisplayArea = document.getElementById('IconDisplayArea');
-    iconDisplayArea.innerHTML = `
-        <div class="IconDisplayArea bg-white p-6 rounded-lg shadow-lg">
-            <h2>Loading...</h2>
-            <div class="loadingbaby">
-                <img src="Assets/Images/loadingbaby.jpg" alt="Loading...">
-            </div>
-            <div class="WeatherDescription"></div>
-            <img class="WeatherIcon" src="" alt="Weather Icon">
-        </div>
-    `;
-}
+// function loadingScreen() {
+//     const iconDisplayArea = document.getElementById('IconDisplayArea');
+//     iconDisplayArea.innerHTML = `
+//         <div class="IconDisplayArea bg-white p-6 rounded-lg shadow-lg">
+//             <h2>Loading...</h2>
+//             <div class="loadingbaby">
+//                 <img src="Assets/Images/loadingbaby.jpg" alt="Loading...">
+//             </div>
+//             <div class="WeatherDescription"></div>
+//             <img class="WeatherIcon" src="" alt="Weather Icon">
+//         </div>
+//     `;
+// }
 
 /**
  * Event listener
