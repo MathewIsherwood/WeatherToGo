@@ -68,19 +68,62 @@ function getOneWeatherHour(dateTime, weatherData) {
 }
 
 // Fetch request to get hourly weather data from the API.
-// Optional parameter longlat, if a longitude and latitude array
+// Optional parameter longlat, if a longitude and latitude object
 // aren't provided, then the function will fetch the longlat from location name
 function updateWeatherHour(townName, longlat = 0) {
-    const url = `https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/hourly`;
-    const apikey = getAPIKey();
+    const weatherTime = "hourly";
 
     if (longlat === 0) {
-        longlat = getLongLat(townName);
+        getLongLat(townName, weatherTime);
+    } else {
+        setWeather(weatherTime, longlat);
     }
+}
 
-    if (longlat === undefined || longlat === 0) {
-        longlat = { long: 51.4545, lat: -2.5879 };
+// Fetch request to get daily weather data from the API.
+// Optional parameter longlat, if a longitude and latitude object
+// aren't provided, then the function will fetch the longlat from location name
+function updateWeatherDaily(townName, longlat = 0) {
+    const weatherTime = "daily";
+
+    if (longlat === 0) {
+        getLongLat(townName, weatherTime);
+    } else {
+        setWeather(weatherTime, longlat);
     }
+}
+
+//get long - lat for places in the uk based on the name of the place
+function getLongLat(placeName, weatherTime) {
+    const url = `https:api.postcodes.io/places?query=${placeName}`;
+    let long = 0;
+    let lat = 0;
+    console.log('Fetching URL:', url);
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            for (let i = 0; i < data.result.length; i++) {
+                if (data.result[i].local_type == "Town" || data.result[i].local_type == "City") {
+                    //console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
+                    long = parseFloat(data.result[i].longitude).toFixed(4);
+                    lat = parseFloat(data.result[i].latitude).toFixed(4);
+                    let longLatObj = { "long": long, "lat": lat };
+
+                    // console.log(longLatObj);
+                    setWeather(weatherTime, longLatObj);
+                    
+                    break;
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function setWeather(weatherTime, longlat) {
+    const url = `https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/${weatherTime}`;
+    const apikey = getAPIKey();
 
     //fetch written by AI
     fetch(`${url}?latitude=${longlat.long}&longitude=${longlat.lat}`, {
@@ -94,11 +137,18 @@ function updateWeatherHour(townName, longlat = 0) {
         .then(data => {
             console.log(data);
             // Process the weather data here
-            const currentWeatherHour = getOneWeatherHour(getCurrentHourISO(), getAllWeatherTimes(data));
+            if(weatherTime === "hourly") {
+                const currentWeatherHour = getOneWeatherHour(getCurrentHourISO(), getAllWeatherTimes(data));
 
-            setTemperatureTextArea(currentWeatherHour);
-            setUVIndexTextArea(currentWeatherHour);
-            setWeatherDescriptionAndIcon(currentWeatherHour);
+                setTemperatureTextArea(currentWeatherHour);
+                setUVIndexTextArea(currentWeatherHour);
+                setWeatherDescriptionAndIcon(currentWeatherHour);
+            } else if (weatherTime === "daily") {
+                const allWeatherDays = getAllWeatherTimes(data);
+
+                setFiveDayTemperatureTextArea(allWeatherDays);
+                setFiveDayWeatherDescriptionAndIcon(allWeatherDays);
+            }
         })
         .catch(error => {
             console.error('Error fetching weather data:', error);
@@ -106,15 +156,21 @@ function updateWeatherHour(townName, longlat = 0) {
 }
 
 // Fetch request to get daily weather data from the API
-function updateWeatherDaily(townName, longlat = 0) {
+/*function updateWeatherDaily(townName, longlat = 0) {
     const url = `https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/daily`;
     const apikey = getAPIKey();
 
-    let longlat = getLongLat(townName);
-    if (longlat === undefined) {
-        console.log("Location not found, defaulting to Bristol");
-        longlat = [51.4545, -2.5879];
-    }
+    getLongLat(longlat).then(
+        function (value) {
+            longlat = value;
+        }
+    );
+
+    // let longlat = getLongLat(townName);
+    // if (longlat === undefined) {
+    //     console.log("Location not found, defaulting to Bristol");
+    //     longlat = [51.4545, -2.5879];
+    // }
 
     //fetch written by AI
     fetch(`${url}?latitude=${longlat.long}&longitude=${longlat.lat}`, {
@@ -136,7 +192,7 @@ function updateWeatherDaily(townName, longlat = 0) {
         .catch(error => {
             console.error('Error fetching weather data:', error);
         });
-}
+}*/
 
 // get the current hour (rounded to nearest hour) in ISO format
 function getCurrentHourISO() {
@@ -277,40 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-//get long - lat for places in the uk based on the name of the place
-function getLongLat(placeName) {
-    const url = `https:api.postcodes.io/places?query=${placeName}`;
-    let long = 0;
-    let lat = 0;
-    console.log('Fetching URL:', url);
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            for (let i = 0; i < data.result.length; i++) {
-                if (data.result[i].local_type == "Town" || data.result[i].local_type == "City") {
-                    //console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
-                    long = parseFloat(data.result[i].longitude).toFixed(4);
-                    lat = parseFloat(data.result[i].latitude).toFixed(4);
-                    let longLatObj = {"long": long, "lat": lat};
-                    
-                    console.log(longLatObj);
-                    return longLatObj;
-                    /*
-                    document.getElementById('latitude').value = lat;
-                    document.getElementById('latitude').innerHTML = `${lat}`;
-                    document.getElementById('longitude').value = long;
-                    document.getElementById('longitude').innerHTML = `${long}`;
-                    */
-                    break;
-                }
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
-
-// updateWeatherHour("Burnley");
+updateWeatherHour("Burnley");
 
 
 // Toggle between GPS and Location Search
