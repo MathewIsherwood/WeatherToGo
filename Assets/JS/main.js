@@ -12,12 +12,16 @@ function getAPIKey() {
  * utilises w3schools code
  */
 function getCurrentLocation() {
+    //give up geolocation after 20 seconds
+    const options = {
+        timeout: 20000
+    };
     let currentLocationObj = {};
     if (navigator.geolocation) {
-        // loadingScreen();
-        navigator.geolocation.getCurrentPosition(usePosition, showError);
+        navigator.geolocation.getCurrentPosition(usePosition, showError, options);
     } else {
         console.log("Geolocation is not supported by this browser.");
+        updateWeatherHour("London");
     }
 }
 
@@ -33,7 +37,7 @@ function usePosition(position) {
     getTownName(latitude, longitude);
 
     //WARNING/IMPORTANT: limited API uses, un-comment when ready to deploy/use
-    updateWeatherHour("London", { "long": longitude, "lat": latitude });
+    //updateWeatherHour("London", { "long": longitude, "lat": latitude });
 }
 
 /**
@@ -54,6 +58,11 @@ function showError(error) {
             console.log("An unknown error occurred.");
             break;
     }
+
+    // if the geolocation fails, assume "London" location
+    const defaultLocation = "London";
+    setGPSLocation(defaultLocation);
+    updateWeatherHour(defaultLocation);
 }
 
 /**
