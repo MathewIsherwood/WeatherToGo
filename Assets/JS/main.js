@@ -298,7 +298,8 @@ function setWeatherDescriptionAndIcon(weatherHour) {
     // and do a lookup in the function to get a description and icon object
     const weatherInfo = getWeatherDescriptionAndIcon(weatherHour.significantWeatherCode);
     // finally set that description and icon object to the HTML text and image
-    document.getElementById("BottomTextArea").innerText = weatherInfo.description;
+    document.getElementById("TopTextArea").innerText = weatherInfo.topDescription;
+    document.getElementById("BottomTextArea").innerText = weatherInfo.bottomDescription;
     document.getElementById("MainIcon").src = weatherInfo.icon;
     document.getElementById("MainIcon").innerHTML = `<img src="${weatherInfo.icon}" alt="Weather Icon">`;
 }
@@ -339,39 +340,39 @@ function setFiveDayWeatherDescriptionAndIcon(weatherDays) {
 function getWeatherDescriptionAndIcon(weatherCode) {
     console.log("weatherCode" + weatherCode);
     const weatherMap = {
-        0: { description: "Clear night", icon: "Assets/Images/clear_moon_night.png" },
-        1: { description: "Sunny", icon: "Assets/Images/sunny.png" },
-        2: { description: "Partly cloudy night", icon: "Assets/Images/cloudy_night.png" },
-        3: { description: "Partly cloudy", icon: "Assets/Images/cloudy_sun" },
-        5: { description: "Mist", icon: "Assets/Images/fogy.png" },
-        6: { description: "Fog", icon: "Assets/Images/fogy.png" },
-        7: { description: "Cloudy", icon: "Assets/Images/cloudy.png" },
-        8: { description: "Overcast", icon: "Assets/Images/cloudy.png" },
-        9: { description: "Light rain shower", icon: "Assets/Images/lightrainday.png" },
-        10: { description: "Light rain shower", icon: "Assets/Images/lightrainnight.png" },
-        11: { description: "Drizzle", icon: "Assets/Images/rain.png" },
-        12: { description: "Light rain", icon: "Assets/Images/lightrainday.png" },
-        13: { description: "Heavy rain shower", icon: "Assets/Images/heavyrainnight.png" },
-        14: { description: "Heavy rain shower", icon: "Assets/Images/heavyrain.png" },
-        15: { description: "Heavy rain", icon: "Assets/Images/windy.png" },
-        16: { description: "Sleet shower", icon: "Assets/Images/sleet.png" },
-        17: { description: "Sleet shower", icon: "Assets/Images/sleet.png" },
-        18: { description: "Sleet", icon: "Assets/Images/sleet.png" },
-        19: { description: "Hail shower", icon: "Assets/Images/hailshowernight.png" },
-        20: { description: "Hail shower", icon: "Assets/Images/hailshower.png" },
-        21: { description: "Hail", icon: "Assets/Images/hail.png" },
-        22: { description: "Light snow shower", icon: "Assets/Images/snow.png" },
-        23: { description: "Light snow shower", icon: "Assets/Images/snow.png" },
-        24: { description: "Light snow", icon: "Assets/Images/snow.png.png" },
-        25: { description: "Heavy snow shower", icon: "Assets/Images/snow.png" },
-        26: { description: "Heavy snow shower", icon: "Assets/Images/snow.png" },
-        27: { description: "Heavy snow", icon: "Assets/Images/snow.png" },
-        28: { description: "Thunder shower", icon: "Assets/Images/thundershowernight.png" },
-        29: { description: "Thunder shower", icon: "Assets/Images/thundershower.png" },
-        30: { description: "Thunder", icon: "Assets/Images/thunder.png" }
+        0: { topDescription: "Clear night", icon: "Assets/Images/clear_moon_night.png", bottomDescription: "Great starwatching weather!" },
+        1: { topDescription: "Sunny", icon: "Assets/Images/sunny.png", bottomDescription: "Sunshine and smiles!" },
+        2: { topDescription: "Partly cloudy night", icon: "Assets/Images/cloudy_night.png", bottomDescription: "Not great stargazing tonight!" },
+        3: { topDescription: "Partly cloudy", icon: "Assets/Images/cloudy_sunny.png", bottomDescription: "Grab the sunshine if you can!" },
+        5: { topDescription: "Mist", icon: "Assets/Images/fogy.png", bottomDescription: "Up to 2km visibility!" },
+        6: { topDescription: "Fog", icon: "Assets/Images/fogy.png", bottomDescription: "Up to 1km visibility!" },
+        7: { topDescription: "Cloudy", icon: "Assets/Images/cloudy.png", bottomDescription: "Cloudy<br /> with a chance of meatballs!" },
+        8: { topDescription: "Overcast", icon: "Assets/Images/cloudy.png", bottomDescription: "Bit dull today,<br /> wear bright colours!" },
+        9: { topDescription: "Light rain shower", icon: "Assets/Images/lightrainday.png", bottomDescription: "Grab your brolley<br />it's raining cats and dogs!" },
+        10: { topDescription: "Light rain shower", icon: "Assets/Images/lightrainnight.png", bottomDescription: "Grab your brolley and torch!<br />it's gonna rain!" },
+        11: { topDescription: "Drizzle", icon: "Assets/Images/rain.png", bottomDescription: "Fine droplets,<br /> waterproofs recommended!" },
+        12: { topDescription: "Light rain", icon: "Assets/Images/lightrainday.png", bottomDescription: "Wear a decent coat today!" },
+        13: { topDescription: "Heavy rain shower", icon: "Assets/Images/heavyrainnight.png", bottomDescription: "Tis a night to stay in!" },
+        14: { topDescription: "Heavy rain shower", icon: "Assets/Images/heavyrain.png", bottomDescription: "Tis a day to stay in!" },
+        15: { topDescription: "Heavy rain", icon: "Assets/Images/heavyrain.png", bottomDescription: "Your brolly might not be enough!" },
+        16: { topDescription: "Sleet shower", icon: "Assets/Images/sleet.png", bottomDescription: "Sleet by night<br />Shepards in fright!" },
+        17: { topDescription: "Sleet shower", icon: "Assets/Images/sleet.png", bottomDescription: "Sleet by day<br /> Cold rain in sight!" },
+        18: { topDescription: "Sleet", icon: "Assets/Images/sleet.png", bottomDescription: "" },
+        19: { topDescription: "Hail shower", icon: "Assets/Images/hailshowernight.png", bottomDescription: "" },
+        20: { topDescription: "Hail shower", icon: "Assets/Images/hailshower.png", bottomDescription: "" },
+        21: { topDescription: "Hail", icon: "Assets/Images/hail.png", bottomDescription: "" },
+        22: { topDescription: "Light snow shower", icon: "Assets/Images/snow.png", bottomDescription: "" },
+        23: { topDescription: "Light snow shower", icon: "Assets/Images/snow.png", bottomDescription: "" },
+        24: { topDescription: "Light snow", icon: "Assets/Images/snow.png.png", bottomDescription: "" },
+        25: { topDescription: "Heavy snow shower", icon: "Assets/Images/snow.png", bottomDescription: "" },
+        26: { topDescription: "Heavy snow shower", icon: "Assets/Images/snow.png", bottomDescription: "" },
+        27: { topDescription: "Heavy snow", icon: "Assets/Images/snow.png", bottomDescription: "" },
+        28: { topDescription: "Thunder shower", icon: "Assets/Images/thundershowernight.png", bottomDescription: "" },
+        29: { topDescription: "Thunder shower", icon: "Assets/Images/thundershower.png", bottomDescription: "" },
+        30: { topDescription: "Thunder", icon: "Assets/Images/thunder.png", bottomDescription: "" }
     };
     // return the description and icon for the numeric code. If the code cannot be found, return an error handling object.
-    return weatherMap[weatherCode] || { description: "Unknown", icon: "Assets/Images/unknown.png" };
+    return weatherMap[weatherCode] || { topDescription: "Unknown", bottomDescription: "Unknown", icon: "Assets/Images/unknown.png" };
 }
 
 // const text-blue-500; // Coldest
