@@ -385,29 +385,21 @@ function getWeatherDescriptionAndIcon(weatherCode) {
  * Background Temperature to Colour
  * changes the background colour depending on the temperature at the location
  */
-function switchBackgroundColour(weatherCondition) {
-    switch (weatherCondition) {
-        case 'Coldest':
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourColdest';
-            break;
-        case 'Cold':
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourCold';
-            break;
-        case 'OK':
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourOK';
-            break;
-        case 'Nice':
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourNice';
-            break;
-        case 'BitWarm':
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourBitWarm';
-            break;
-        case 'ReallyWarm':
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourReallyWarm';
-            break;
-        default:
-            document.getElementById('primarybackground').className = 'TemperatureBackgroundColour';
-            break;
+function switchBackgroundColour(temperature) {
+    if (temperature < 5) {
+        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourColdest';
+    } else if (temperature >= 5 && temperature < 12) {
+        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourCold';
+    } else if (temperature >= 12 && temperature < 18) {
+        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourOK';
+    } else if (temperature >= 18 && temperature < 24) {
+        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourNice';
+    } else if (temperature >= 24 && temperature < 30) {
+        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourBitWarm';
+    } else if (temperature >= 30) {
+        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourReallyWarm';
+    } else {
+        document.getElementsByClassName('primarybackground').className = 'TemperatureBackgroundColourOK';
     }
 }
 
