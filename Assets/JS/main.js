@@ -352,3 +352,30 @@ document.getElementById('toggleButton').addEventListener('click', function () {
 // Initialize with searchbar visible and GPS location hidden
 document.getElementById('searchbar').style.display = 'flex';
 document.getElementById('GPSlocation').style.display = 'none';
+
+// Switch background colour based on weather condition
+function switchBackgroundColour(weatherCondition) {
+    switch (weatherCondition) {
+        case 'Coldest':
+            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourColdest';
+            break;
+        case 'Cold':
+            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourCold';
+            break;
+        case 'OK':
+            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourOK';
+            break;
+        case 'Nice':
+            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourNice';
+            break;
+        case 'BitWarm':
+            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourBitWarm';
+            break;
+        case 'ReallyWarm':
+            document.getElementById('primarybackground').className = 'TemperatureBackgroundColourReallyWarm';
+            break;
+        default:
+            document.getElementById('primarybackground').className = 'TemperatureBackgroundColour';
+            break;
+    }
+}
