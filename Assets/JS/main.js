@@ -33,7 +33,7 @@ function usePosition(position) {
     getTownName(latitude, longitude);
 
     //WARNING/IMPORTANT: limited API uses, un-comment when ready to deploy/use
-    //updateWeatherHour("London", { "long": longitude, "lat": latitude });
+    // updateWeatherHour("London", { "long": longitude, "lat": latitude });
 }
 
 /**
@@ -462,7 +462,6 @@ placeName.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         // get the weather data for the placename
         parseSearchInput(placeName.value);
-        // updateWeatherHour(placeName.value);
     }
 });
 
@@ -471,12 +470,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     for (let button of buttons) {
         button.addEventListener("click", function () {
-            if (this.getAttribute("data-type") === "submit") {
+            if (this.getAttribute("id") === "submitButton") {
                 // get the placename from the text box
                 let userAnswer = (document.getElementById("placeName").value).toString();
                 // and get the weather data for that placename
                 parseSearchInput(placeName.value);
-                // updateWeatherHour(userAnswer);
             } else {
                 // TODO: display this error message to the user
                 ErrorEvent("Unknown place submitted");
