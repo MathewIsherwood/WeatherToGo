@@ -251,9 +251,45 @@ function setTemperatureTextArea(weatherHour) {
 }
 
 function setUVIndexTextArea(weatherHour) {
+    let uvIndex = "";
     // get the UV index from the weather object
-    const uvIndex = "UV Index: " + weatherHour.uvIndex.toString();
-    // and set that UV Index to the HTML text
+    switch (weatherHour.uvIndex) {
+        case 1:            
+            uvIndex = "UV Index right now is : Low - Burn Time 60 Minutes"
+            break;
+        case 2:
+            uvIndex = "UV Index right now is : Low - Burn Time 60 Minutes"
+            break;
+        case 3:
+            uvIndex = "UV Index right now is : Moderate - Burn Time 45 Minutes"
+            break;
+        case 4:
+            uvIndex = "UV Index right now is : Moderate - Burn Time 45 Minutes"
+            break;
+        case 5:
+            uvIndex = "UV Index right now is : Moderate - Burn Time 45 Minutes"
+            break;
+        case 6:
+            uvIndex = "UV Index right now is : High - Burn Time 30 Minutes"
+            break;
+        case 7:
+            uvIndex = "UV Index right now is : High - Burn Time 30 Minutes"
+            break;
+        case 8:
+            uvIndex = "UV Index right now is : Very High - Burn Time 15-25 Minutes"
+            break;
+        case 9:
+            uvIndex = "UV Index right now is : Very High - Burn Time 15-25 Minutes"
+            break;
+        case 10:
+            uvIndex = "UV Index right now is : Very High - Burn Time 15-25 Minutes"
+            break;
+        default:
+            uvIndex = "UV Index Not Found: " + weatherHour.uvIndex.toString();
+            break;
+    }
+
+   // and set that UV Index to the HTML text
     document.getElementsByClassName("UVIndexTextArea")[0].innerText = uvIndex;
 }
 
