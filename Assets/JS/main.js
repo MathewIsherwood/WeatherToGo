@@ -50,12 +50,15 @@ function showError(error) {
             break;
         case error.POSITION_UNAVAILABLE:
             console.log("Location information is unavailable.");
+            setGPSLabel("GPS Unavailable.\nGPS Location:");
             break;
         case error.TIMEOUT:
             console.log("The request to get user location timed out.");
+            setGPSLabel("GPS Timed out.\nGPS Location:");
             break;
         case error.UNKNOWN_ERROR:
             console.log("An unknown error occurred.");
+            setGPSLabel("Unknown GPS error.\nGPS Location:");
             break;
     }
 
@@ -96,6 +99,14 @@ function getTownName(lat, long) {
  */
 function setGPSLocation(townName) {
     document.getElementById('GPSLocation').innerText = townName;
+}
+
+/**
+ * GPS Location text
+ * sets the town name to HTML text
+ */
+function setGPSLabel(info) {
+    document.getElementById('GPSLabel').innerText = info;
 }
 
 /**
