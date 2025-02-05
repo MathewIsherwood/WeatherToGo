@@ -33,7 +33,7 @@ function usePosition(position) {
     getTownName(latitude, longitude);
 
     //WARNING/IMPORTANT: limited API uses, un-comment when ready to deploy/use
-    updateWeatherHour("London", { "long": longitude, "lat": latitude });
+    // updateWeatherHour("London", { "long": longitude, "lat": latitude });
 }
 
 /**
@@ -122,6 +122,29 @@ function updateWeatherHour(townName, longlat = 0) {
         getLongLat(townName, weatherTime);
     } else {
         setWeather(weatherTime, longlat);
+    }
+}
+
+function parseSearchInput(userInput) {
+    // check for comma seperated values
+    if (userInput.search(",") !== -1) {
+        // do the lat long parsing, spliting the two comma seperated
+        const splitInput = userInput.split(",");
+        const lat = parseFloat(splitInput[0].trim());
+        const long = parseFloat(splitInput[1].trim());
+
+        // if there was a comma, but the the split isn't numbers
+        // (maybe a place with a comma in it?) then complete the logic using the town name
+        if (lat === NaN || long === NaN) {
+            updateWeatherHour(userInput);
+        } else {
+            // we have handled errors, we must have a lat and long, so use them
+            updateWeatherHour(userInput, { "long": long, "lat": lat });
+        }
+    }
+    // we must have a town name, lets use that
+    else {
+        updateWeatherHour(userInput);
     }
 }
 
@@ -431,7 +454,7 @@ const placeName = document.getElementById('placeName');
 placeName.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         // get the weather data for the placename
-        updateWeatherHour(placeName.value);
+        parseSearchInput(placeName.value);
     }
 });
 
@@ -440,11 +463,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     for (let button of buttons) {
         button.addEventListener("click", function () {
-            if (this.getAttribute("data-type") === "submit") {
+            if (this.getAttribute("id") === "submitButton") {
                 // get the placename from the text box
                 let userAnswer = (document.getElementById("placeName").value).toString();
                 // and get the weather data for that placename
-                updateWeatherHour(userAnswer);
+                parseSearchInput(placeName.value);
             } else {
                 // TODO: display this error message to the user
                 ErrorEvent("Unknown place submitted");
