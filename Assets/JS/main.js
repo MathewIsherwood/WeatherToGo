@@ -3,7 +3,8 @@ function getAllParameters(weatherData) {
 }
 
 function getAPIKey() {
-    return `eyJ4NXQjUzI1NiI6Ik5XVTVZakUxTkRjeVl6a3hZbUl4TkdSaFpqSmpOV1l6T1dGaE9XWXpNMk0yTWpRek5USm1OVEE0TXpOaU9EaG1NVFJqWVdNellXUm1ZalUyTTJJeVpBPT0iLCJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ==.eyJzdWIiOiJtb2d0aGVtb3NxdWl0b0BnbWFpbC5jb21AY2FyYm9uLnN1cGVyIiwiYXBwbGljYXRpb24iOnsib3duZXIiOiJtb2d0aGVtb3NxdWl0b0BnbWFpbC5jb20iLCJ0aWVyUXVvdGFUeXBlIjpudWxsLCJ0aWVyIjoiVW5saW1pdGVkIiwibmFtZSI6InNpdGVfc3BlY2lmaWMtMDViNTQ1ODAtYWYwZS00ZmJjLWI1ZjMtMmE5ZmViOWVlYjdjIiwiaWQiOjkzMzEsInV1aWQiOiI1NDgxMTc1Mi01NjlkLTQ4MWMtODU2Ny1iYTVhN2RlZGIzMzIifSwiaXNzIjoiaHR0cHM6XC9cL2FwaS1tYW5hZ2VyLmFwaS1tYW5hZ2VtZW50Lm1ldG9mZmljZS5jbG91ZDo0NDNcL29hdXRoMlwvdG9rZW4iLCJ0aWVySW5mbyI6eyJ3ZGhfc2l0ZV9zcGVjaWZpY19mcmVlIjp7InRpZXJRdW90YVR5cGUiOiJyZXF1ZXN0Q291bnQiLCJncmFwaFFMTWF4Q29tcGxleGl0eSI6MCwiZ3JhcGhRTE1heERlcHRoIjowLCJzdG9wT25RdW90YVJlYWNoIjp0cnVlLCJzcGlrZUFycmVzdExpbWl0IjowLCJzcGlrZUFycmVzdFVuaXQiOiJzZWMifX0sImtleXR5cGUiOiJQUk9EVUNUSU9OIiwic3Vic2NyaWJlZEFQSXMiOlt7InN1YnNjcmliZXJUZW5hbnREb21haW4iOiJjYXJib24uc3VwZXIiLCJuYW1lIjoiU2l0ZVNwZWNpZmljRm9yZWNhc3QiLCJjb250ZXh0IjoiXC9zaXRlc3BlY2lmaWNcL3YwIiwicHVibGlzaGVyIjoiSmFndWFyX0NJIiwidmVyc2lvbiI6InYwIiwic3Vic2NyaXB0aW9uVGllciI6IndkaF9zaXRlX3NwZWNpZmljX2ZyZWUifV0sInRva2VuX3R5cGUiOiJhcGlLZXkiLCJpYXQiOjE3Mzg2NjU1MTksImp0aSI6IjlmMDQ2MWJiLWFmODctNDc3MC1hYzRhLTMxN2RiODE1NjQxYyJ9.AEFlnjZrvfSlDBzGF90mZb5hH9yXQ-RLkNKBzOOJOs-tKJctS05iLIgL0SjlohsskiYhLphVG4tZ4qgqnR2X97mGjXjtzYALoaDQYI1IBXBN9MEAIdoqhPAMghzlkgOSzjyc7_NpB8pALsqOzHVdediOr4TVmQv04lEfwpPs8Lp2ALByGadWDzSBBzN-qLktCjRS0H-oHDCC2qHoKTF-p3svvyvah9hCWTG-HaWK1JcsEpAPIqD-uu2KtOxkSUq097WPKpNno1dybsISx6uBZSVeP7ejP0sH16omqk03fPHAgNv9aE5buhmTkCQDO46X-VBk_zmF9BNtqTbNUkes3g==`;
+    // return `eyJ4NXQjUzI1NiI6Ik5XVTVZakUxTkRjeVl6a3hZbUl4TkdSaFpqSmpOV1l6T1dGaE9XWXpNMk0yTWpRek5USm1OVEE0TXpOaU9EaG1NVFJqWVdNellXUm1ZalUyTTJJeVpBPT0iLCJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ==.eyJzdWIiOiJtb2d0aGVtb3NxdWl0b0BnbWFpbC5jb21AY2FyYm9uLnN1cGVyIiwiYXBwbGljYXRpb24iOnsib3duZXIiOiJtb2d0aGVtb3NxdWl0b0BnbWFpbC5jb20iLCJ0aWVyUXVvdGFUeXBlIjpudWxsLCJ0aWVyIjoiVW5saW1pdGVkIiwibmFtZSI6InNpdGVfc3BlY2lmaWMtMDViNTQ1ODAtYWYwZS00ZmJjLWI1ZjMtMmE5ZmViOWVlYjdjIiwiaWQiOjkzMzEsInV1aWQiOiI1NDgxMTc1Mi01NjlkLTQ4MWMtODU2Ny1iYTVhN2RlZGIzMzIifSwiaXNzIjoiaHR0cHM6XC9cL2FwaS1tYW5hZ2VyLmFwaS1tYW5hZ2VtZW50Lm1ldG9mZmljZS5jbG91ZDo0NDNcL29hdXRoMlwvdG9rZW4iLCJ0aWVySW5mbyI6eyJ3ZGhfc2l0ZV9zcGVjaWZpY19mcmVlIjp7InRpZXJRdW90YVR5cGUiOiJyZXF1ZXN0Q291bnQiLCJncmFwaFFMTWF4Q29tcGxleGl0eSI6MCwiZ3JhcGhRTE1heERlcHRoIjowLCJzdG9wT25RdW90YVJlYWNoIjp0cnVlLCJzcGlrZUFycmVzdExpbWl0IjowLCJzcGlrZUFycmVzdFVuaXQiOiJzZWMifX0sImtleXR5cGUiOiJQUk9EVUNUSU9OIiwic3Vic2NyaWJlZEFQSXMiOlt7InN1YnNjcmliZXJUZW5hbnREb21haW4iOiJjYXJib24uc3VwZXIiLCJuYW1lIjoiU2l0ZVNwZWNpZmljRm9yZWNhc3QiLCJjb250ZXh0IjoiXC9zaXRlc3BlY2lmaWNcL3YwIiwicHVibGlzaGVyIjoiSmFndWFyX0NJIiwidmVyc2lvbiI6InYwIiwic3Vic2NyaXB0aW9uVGllciI6IndkaF9zaXRlX3NwZWNpZmljX2ZyZWUifV0sInRva2VuX3R5cGUiOiJhcGlLZXkiLCJpYXQiOjE3Mzg2NjU1MTksImp0aSI6IjlmMDQ2MWJiLWFmODctNDc3MC1hYzRhLTMxN2RiODE1NjQxYyJ9.AEFlnjZrvfSlDBzGF90mZb5hH9yXQ-RLkNKBzOOJOs-tKJctS05iLIgL0SjlohsskiYhLphVG4tZ4qgqnR2X97mGjXjtzYALoaDQYI1IBXBN9MEAIdoqhPAMghzlkgOSzjyc7_NpB8pALsqOzHVdediOr4TVmQv04lEfwpPs8Lp2ALByGadWDzSBBzN-qLktCjRS0H-oHDCC2qHoKTF-p3svvyvah9hCWTG-HaWK1JcsEpAPIqD-uu2KtOxkSUq097WPKpNno1dybsISx6uBZSVeP7ejP0sH16omqk03fPHAgNv9aE5buhmTkCQDO46X-VBk_zmF9BNtqTbNUkes3g==`;
+    return `eyJ4NXQjUzI1NiI6Ik5XVTVZakUxTkRjeVl6a3hZbUl4TkdSaFpqSmpOV1l6T1dGaE9XWXpNMk0yTWpRek5USm1OVEE0TXpOaU9EaG1NVFJqWVdNellXUm1ZalUyTTJJeVpBPT0iLCJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ==.eyJzdWIiOiJ6NGQxNTkyZ0BzdHVkZW50cy5jb2RlaW5zdGl0dXRlLm5ldEBjYXJib24uc3VwZXIiLCJhcHBsaWNhdGlvbiI6eyJvd25lciI6Ino0ZDE1OTJnQHN0dWRlbnRzLmNvZGVpbnN0aXR1dGUubmV0IiwidGllclF1b3RhVHlwZSI6bnVsbCwidGllciI6IlVubGltaXRlZCIsIm5hbWUiOiJzaXRlX3NwZWNpZmljLTlmYTI0MWZhLTM0NDgtNGZlZi1iNDNjLWEwNWIwMDlhNWUwMiIsImlkIjo5MzY1LCJ1dWlkIjoiNjU4MzNkNGEtNTk3Yi00OWE1LTk5M2YtOWE1YTg0MGVkMDIzIn0sImlzcyI6Imh0dHBzOlwvXC9hcGktbWFuYWdlci5hcGktbWFuYWdlbWVudC5tZXRvZmZpY2UuY2xvdWQ6NDQzXC9vYXV0aDJcL3Rva2VuIiwidGllckluZm8iOnsid2RoX3NpdGVfc3BlY2lmaWNfZnJlZSI6eyJ0aWVyUXVvdGFUeXBlIjoicmVxdWVzdENvdW50IiwiZ3JhcGhRTE1heENvbXBsZXhpdHkiOjAsImdyYXBoUUxNYXhEZXB0aCI6MCwic3RvcE9uUXVvdGFSZWFjaCI6dHJ1ZSwic3Bpa2VBcnJlc3RMaW1pdCI6MCwic3Bpa2VBcnJlc3RVbml0Ijoic2VjIn19LCJrZXl0eXBlIjoiUFJPRFVDVElPTiIsInN1YnNjcmliZWRBUElzIjpbeyJzdWJzY3JpYmVyVGVuYW50RG9tYWluIjoiY2FyYm9uLnN1cGVyIiwibmFtZSI6IlNpdGVTcGVjaWZpY0ZvcmVjYXN0IiwiY29udGV4dCI6Ilwvc2l0ZXNwZWNpZmljXC92MCIsInB1Ymxpc2hlciI6IkphZ3Vhcl9DSSIsInZlcnNpb24iOiJ2MCIsInN1YnNjcmlwdGlvblRpZXIiOiJ3ZGhfc2l0ZV9zcGVjaWZpY19mcmVlIn1dLCJ0b2tlbl90eXBlIjoiYXBpS2V5IiwiaWF0IjoxNzM4NzU0MTIxLCJqdGkiOiJiZDc0NTNhNC1kYWFiLTQxM2EtOWVkMi1mOWZhMzc2MDBlZmIifQ==.VtadWMvaTxSBp55FKJDaX56Qz9jU9AofwaBA0-SfY7Z0mSqi1wNOonBGDH4y2ZucJMjp_kgwZEMR19P60Su8EaaSWbQque-3pARI2fgkrFcF99LJRj0OqwgU2B4G-U1xuEkqWIh7f0ZlFB-G1hiPg9-zzbdTvWLxyZkZy-77iPSFxbgn4aTNG8hKatdpXLRnVm9b___M1PpkXn25MDxey8_VKb4sTtXQ2VKv14DjNENRvr2_3HFape_qeTXFrSrzBT_N-pY2ecB7TQ_giDSdLZV0KePo_XNhWYD7KvKMCciRPri1UtEhnlXOPTqkcgw_pbXDF0gvSLBvDcZZkWTVLw==`;
 }
 
 // function getParameterSymbolText(parameterName, allParameters) {
@@ -20,19 +21,20 @@ function getAPIKey() {
 function getCurrentLocation() {
     let currentLocationObj = {};
     if (navigator.geolocation) {
-        currentLocationObj = navigator.geolocation.getCurrentPosition(usePosition, showError);
+        // loadingScreen();
+        navigator.geolocation.getCurrentPosition(usePosition, showError);
     } else {
         console.log("Geolocation is not supported by this browser.");
     }
-
-    console.log(currentLocationObj);
 }
 
 function usePosition(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 
-
+    console.log("Latitude: " + latitude + " Longitude: " + longitude);
+    getTownName(latitude, longitude);
+    updateWeatherHour("London", { "long": longitude, "lat": latitude });
 }
 
 //geolocation error handling - w3schools
@@ -51,6 +53,32 @@ function showError(error) {
             console.log("An unknown error occurred.");
             break;
     }
+}
+
+function getTownName(lat,long) {
+    const url = `http://api.geonames.org/findNearbyPlaceName`;
+    const username = `moglin`;
+
+    //fetch written by AI
+    fetch(`${url}?lat=${lat}&lng=${long}&username=${username}`, {
+        method: 'GET',
+        headers: {
+            'accept': 'application/json',
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Process town name here
+            // console.log(data.geonames[0].name);
+            setGPSLocation(data.geonames[0].name);
+        })
+        .catch(error => {
+            console.error('Error fetching town name:', error);
+        });
+}
+
+function setGPSLocation(townName) {
+    document.getElementById('GPSLocation').innerText = townName;
 }
 
 function getAllWeatherTimes(weatherData) {
@@ -154,45 +182,6 @@ function setWeather(weatherTime, longlat) {
             console.error('Error fetching weather data:', error);
         });
 }
-
-// Fetch request to get daily weather data from the API
-/*function updateWeatherDaily(townName, longlat = 0) {
-    const url = `https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/daily`;
-    const apikey = getAPIKey();
-
-    getLongLat(longlat).then(
-        function (value) {
-            longlat = value;
-        }
-    );
-
-    // let longlat = getLongLat(townName);
-    // if (longlat === undefined) {
-    //     console.log("Location not found, defaulting to Bristol");
-    //     longlat = [51.4545, -2.5879];
-    // }
-
-    //fetch written by AI
-    fetch(`${url}?latitude=${longlat.long}&longitude=${longlat.lat}`, {
-        method: 'GET',
-        headers: {
-            'accept': 'application/json',
-            'apikey': apikey
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            // Process the weather data here
-            const allWeatherDays = getAllWeatherTimes(data);
-
-            setFiveDayTemperatureTextArea(allWeatherDays);
-            setFiveDayWeatherDescriptionAndIcon(allWeatherDays);
-        })
-        .catch(error => {
-            console.error('Error fetching weather data:', error);
-        });
-}*/
 
 // get the current hour (rounded to nearest hour) in ISO format
 function getCurrentHourISO() {
@@ -348,10 +337,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
- updateWeatherHour("Burnley");
-
-
-
 // Toggle between GPS and Location Search
 
 document.getElementById('toggleButton').addEventListener('click', function () {
@@ -365,9 +350,14 @@ document.getElementById('toggleButton').addEventListener('click', function () {
         gpsLocation.style.display = 'flex';
     }
 });
+
+
+// updateWeatherHour("Bristol");
+getCurrentLocation();
+
 // Initialize with searchbar visible and GPS location hidden
-document.getElementById('searchbar').style.display = 'flex';
-document.getElementById('GPSlocation').style.display = 'none';
+document.getElementById('searchbar').style.display = 'none';
+document.getElementById('GPSlocation').style.display = 'flex';
 
 // Switch background colour based on weather condition
 function switchBackgroundColour(weatherCondition) {
@@ -395,3 +385,4 @@ function switchBackgroundColour(weatherCondition) {
             break;
     }
 }
+
