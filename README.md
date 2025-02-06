@@ -213,7 +213,14 @@ This project is licensed under the MIT License.
 [Back to Contents](#contents)
 
 ## Manual Tests
-
+• User refuses GPS location
+   - Location defaults to London, and user can click switch box to enter an location manually.
+• GPS Location takes too long to load
+   - Error message is displayed that Geo Location services failed, and defaults to London.
+• Met Office API is down
+   - Error message is displayed to user that weather data is unavailable, and to try again.
+• User searches for a non-existent town name (in UK)
+   - User is informed that the location name couldn't be found, and to try another location.
 ### Home page
 
 [Back to Contents](#contents)
@@ -225,6 +232,9 @@ https://validator.w3.org/nu
 2. CSS
 https://jigsaw.we.org/css-validator/validator
 
-3. Lighthouse.
+3. JS
+https://jsvalidator.com/
+
+4. Lighthouse.
 
 [Back to Contents](#contents)
