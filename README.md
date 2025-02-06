@@ -118,11 +118,11 @@ WeatherToGo/
 - **Description**: The home page displays the current weather conditions, including temperature, weather icons, and a brief weather description. It also features a location input/search bar and a toggle button to switch between GPS-based location tracking and manual location search.
 - **User Value**: Provides users with real-time weather updates and allows them to easily switch between different locations.
 
-![Screen Shot 2025-02-06 at 09 58 06](https://github.com/user-attachments/assets/4378c8ed-2be3-4074-8596-20cd06d40622 =x250)
+![Screen Shot 2025-02-06 at 09 58 06](https://github.com/user-attachments/assets/4378c8ed-2be3-4074-8596-20cd06d40622=x250)
 
-![Screen Shot 2025-02-06 at 10 06 44](https://github.com/user-attachments/assets/f344192c-d983-4121-903b-5ddb804b738f =x250)
+![Screen Shot 2025-02-06 at 10 06 44](https://github.com/user-attachments/assets/f344192c-d983-4121-903b-5ddb804b738f=x250)
 
-![Screen Shot 2025-02-06 at 10 07 18](https://github.com/user-attachments/assets/cd2178e7-3d93-4f45-934e-0923ead39ee4 =x250)
+![Screen Shot 2025-02-06 at 10 07 18](https://github.com/user-attachments/assets/cd2178e7-3d93-4f45-934e-0923ead39ee4=x250)
 
 ### 5 Day Forecast Page
 - **Description**: This section provides a detailed weather forecast for the next five days, including daily high and low temperatures, weather icons, and brief weather descriptions.
