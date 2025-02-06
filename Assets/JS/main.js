@@ -12,12 +12,20 @@ function getAPIKey() {
  * utilises w3schools code
  */
 function getCurrentLocation() {
+    //give up geolocation after 20 seconds
+    const options = {
+        timeout: 20000
+    };
+    //hide the toggle search/gps button, until the gps completes/fails
+    toggleSearchGPSButton();
+
     let currentLocationObj = {};
     if (navigator.geolocation) {
-        // loadingScreen();
-        navigator.geolocation.getCurrentPosition(usePosition, showError);
+        navigator.geolocation.getCurrentPosition(usePosition, showError, options);
     } else {
         console.log("Geolocation is not supported by this browser.");
+        setGPSLabel("No Browser GPS.\nLocation:");
+        updateWeatherHour("London");
     }
 }
 
@@ -28,6 +36,9 @@ function getCurrentLocation() {
 function usePosition(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
+
+    // show button to toggle between search and GPS, now that gps api has succeeded
+    toggleSearchGPSButton();
 
     console.log("Latitude: " + latitude + " Longitude: " + longitude);
     getTownName(latitude, longitude);
@@ -46,14 +57,28 @@ function showError(error) {
             break;
         case error.POSITION_UNAVAILABLE:
             console.log("Location information is unavailable.");
+            setGPSLabel("GPS Unavailable.\nLocation:");
             break;
         case error.TIMEOUT:
             console.log("The request to get user location timed out.");
+            setGPSLabel("GPS Timed out.\nLocation:");
             break;
         case error.UNKNOWN_ERROR:
             console.log("An unknown error occurred.");
+            setGPSLabel("Unknown GPS error.\nLocation:");
             break;
     }
+
+    // show button to toggle between search and GPS, now that gps has failed
+    toggleSearchGPSButton();
+
+    // if the geolocation fails, assume "London" location
+    const defaultLocation = "London";
+    setGPSLocation(defaultLocation);
+
+    // incase postcodes API is also down, send a default lat long for london
+    const defaultLatLong = { "lat": 51.5085, "long": -0.1257 };
+    updateWeatherHour(defaultLocation, defaultLatLong);
 }
 
 /**
@@ -78,6 +103,7 @@ function getTownName(lat, long) {
         })
         .catch(error => {
             console.error('Error fetching town name:', error);
+            setGPSLocation("Couldn't find\nlocation name");
         });
 }
 
@@ -87,6 +113,14 @@ function getTownName(lat, long) {
  */
 function setGPSLocation(townName) {
     document.getElementById('GPSLocation').innerText = townName;
+}
+
+/**
+ * GPS Location text
+ * sets the town name to HTML text
+ */
+function setGPSLabel(info) {
+    document.getElementById('GPSLabel').innerText = info;
 }
 
 /**
@@ -126,6 +160,20 @@ function updateWeatherHour(townName, longlat = 0) {
 }
 
 /**
+ * Update HTML with one day weather data
+ * passes through the town name and optional longitude and latitude object to set the HTML
+ */
+function updateWeatherDaily(townName, longlat = 0) {
+    const weatherTime = "daily";
+
+    if (longlat === 0) {
+        getLongLat(townName, weatherTime);
+    } else {
+        setWeather(weatherTime, longlat);
+    }
+}
+
+/**
  * Parse search box input string
  * checks for comma seperated floats, i.e. latitude and longitude
  * mostly used for testing, but could be used by the user
@@ -154,20 +202,6 @@ function parseSearchInput(userInput) {
 }
 
 /**
- * Update HTML with one day weather data
- * passes through the town name and optional longitude and latitude object to set the HTML
- */
-function updateWeatherDaily(townName, longlat = 0) {
-    const weatherTime = "daily";
-
-    if (longlat === 0) {
-        getLongLat(townName, weatherTime);
-    } else {
-        setWeather(weatherTime, longlat);
-    }
-}
-
-/**
  * Longitude and Latitude API from town name
  * fetches the longitude and latitude using the town name, from the Postcodes API,
  * and passes this through to the next fetch for weather data
@@ -180,8 +214,10 @@ function getLongLat(placeName, weatherTime) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
+            let foundTown = false;
             for (let i = 0; i < data.result.length; i++) {
                 if (data.result[i].local_type == "Town" || data.result[i].local_type == "City") {
+                    foundTown = true;
                     console.log(`Place: ${data.result[i].name_1}, Longitude: ${data.result[i].longitude}, Latitude: ${data.result[i].latitude}`);
                     long = parseFloat(data.result[i].longitude).toFixed(4);
                     lat = parseFloat(data.result[i].latitude).toFixed(4);
@@ -192,6 +228,10 @@ function getLongLat(placeName, weatherTime) {
 
                     break;
                 }
+            }
+            if (!foundTown) {
+                console.log("User entered an invalid town: " + placeName);
+                topTextAreaError("Invalid Location Name.\n\nPlease try another.");
             }
         })
         .catch(error => {
@@ -236,7 +276,18 @@ function setWeather(weatherTime, longlat) {
         })
         .catch(error => {
             console.error('Error fetching weather data:', error);
+            topTextAreaError("Error fetching weather data.\n\nPlease try again.");
         });
+}
+
+/**
+ * Top Text Area Error
+ * format text area for error message; invalid search, or metoffice API error
+ */
+function topTextAreaError(errorMessage) {
+    document.getElementById("TopTextArea").innerText = errorMessage;
+    document.getElementById("MainIcon").src = "";
+    document.getElementById("BottomTextArea").innerText = "";
 }
 
 /**
@@ -269,6 +320,16 @@ function getCurrentHourISO() {
     return textTime;
 }
 
+function toggleSearchGPSButton() {
+    let toggleButton = document.getElementById('toggleButton');
+
+    if (toggleButton.style.visibility === 'hidden') {
+        toggleButton.style.visibility = 'visible';
+    } else if (toggleButton.style.visibility === 'visible' || toggleButton.style.visibility === '') {
+        toggleButton.style.visibility = 'hidden';
+    }
+}
+
 /**
  * Current hour forecast section
  */
@@ -283,10 +344,10 @@ function setUVIndexTextArea(weatherHour) {
     let uvIndex = "";
     // get the UV index from the weather object
     switch (weatherHour.uvIndex) {
-        case 0:            
+        case 0:
             uvIndex = "No sun right now, UV Index is Low"
             break;
-        case 1:            
+        case 1:
             uvIndex = "UV Index right now is : Low - Burn Time 60 Minutes"
             break;
         case 2:
@@ -321,7 +382,7 @@ function setUVIndexTextArea(weatherHour) {
             break;
     }
 
-   // and set that UV Index to the HTML text
+    // and set that UV Index to the HTML text
     document.getElementsByClassName("UVIndexTextArea")[0].innerText = uvIndex;
 }
 
@@ -378,24 +439,24 @@ function getWeatherDescriptionAndIcon(weatherCode) {
         3: { topDescription: "Partly cloudy", icon: "Assets/Images/cloudy_sunny.png", bottomDescription: "Grab the sunshine if you can!" },
         5: { topDescription: "Mist", icon: "Assets/Images/fogy.png", bottomDescription: "Up to 2km visibility!" },
         6: { topDescription: "Fog", icon: "Assets/Images/fogy.png", bottomDescription: "Up to 1km visibility!" },
-        7: { topDescription: "Cloudy", icon: "Assets/Images/cloudy.png", bottomDescription: "Cloudy<br /> with a chance of meatballs!" },
-        8: { topDescription: "Overcast", icon: "Assets/Images/cloudy.png", bottomDescription: "Bit dull today,<br /> wear bright colours!" },
-        9: { topDescription: "Light rain shower", icon: "Assets/Images/lightrainday.png", bottomDescription: "Grab your brolley<br />it's raining cats and dogs!" },
-        10: { topDescription: "Light rain shower", icon: "Assets/Images/lightrainnight.png", bottomDescription: "Grab your brolley and torch!<br />it's gonna rain!" },
-        11: { topDescription: "Drizzle", icon: "Assets/Images/rain.png", bottomDescription: "Fine droplets,<br /> waterproofs recommended!" },
+        7: { topDescription: "Cloudy", icon: "Assets/Images/cloudy.png", bottomDescription: "Cloudy\nwith a chance of meatballs!" },
+        8: { topDescription: "Overcast", icon: "Assets/Images/cloudy.png", bottomDescription: "Bit dull today,\nwear bright colours!" },
+        9: { topDescription: "Light rain shower", icon: "Assets/Images/lightrainday.png", bottomDescription: "Grab your brolley\nit's raining cats and dogs!" },
+        10: { topDescription: "Light rain shower", icon: "Assets/Images/lightrainnight.png", bottomDescription: "Grab your brolley and torch!\nit's gonna rain!" },
+        11: { topDescription: "Drizzle", icon: "Assets/Images/rain.png", bottomDescription: "Fine droplets,\nwaterproofs recommended!" },
         12: { topDescription: "Light rain", icon: "Assets/Images/lightrainday.png", bottomDescription: "Wear a decent coat today!" },
         13: { topDescription: "Heavy rain shower", icon: "Assets/Images/heavyrainnight.png", bottomDescription: "Tis a night to stay in!" },
         14: { topDescription: "Heavy rain shower", icon: "Assets/Images/heavyrain.png", bottomDescription: "Tis a day to stay in!" },
         15: { topDescription: "Heavy rain", icon: "Assets/Images/heavyrain.png", bottomDescription: "Your brolly might not be enough!" },
-        16: { topDescription: "Sleet shower", icon: "Assets/Images/sleet.png", bottomDescription: "Sleet by night<br />Shepards in fright!" },
-        17: { topDescription: "Sleet shower", icon: "Assets/Images/sleet.png", bottomDescription: "Sleet by day<br /> Cold rain in sight!" },
+        16: { topDescription: "Sleet shower", icon: "Assets/Images/sleet.png", bottomDescription: "Sleet by night\nShepards in fright!" },
+        17: { topDescription: "Sleet shower", icon: "Assets/Images/sleet.png", bottomDescription: "Sleet by day\nCold rain in sight!" },
         18: { topDescription: "Sleet", icon: "Assets/Images/sleet.png", bottomDescription: "Warning: Heavier than usual rain!" },
         19: { topDescription: "Hail shower", icon: "Assets/Images/hailshowernight.png", bottomDescription: "But and night, much scarier!" },
-        20: { topDescription: "Hail shower", icon: "Assets/Images/hailshower.png", bottomDescription: "Watch out for<br /> falling icicles!" },
-        21: { topDescription: "Hail", icon: "Assets/Images/hail.png", bottomDescription: "Watch out for<br /> falling icicles!" },
-        22: { topDescription: "Light snow shower", icon: "Assets/Images/snow.png", bottomDescription: "Lightly sprinkled,<br /> like in baking!" },
-        23: { topDescription: "Light snow shower", icon: "Assets/Images/snow.png", bottomDescription: "Lightly sprinkled,<br /> like in baking!" },
-        24: { topDescription: "Light snow", icon: "Assets/Images/snow.png.png", bottomDescription: "Lightly sprinkled,<br /> like in baking!" },
+        20: { topDescription: "Hail shower", icon: "Assets/Images/hailshower.png", bottomDescription: "Watch out for\nfalling icicles!" },
+        21: { topDescription: "Hail", icon: "Assets/Images/hail.png", bottomDescription: "Watch out for\n falling icicles!" },
+        22: { topDescription: "Light snow shower", icon: "Assets/Images/snow.png", bottomDescription: "Lightly sprinkled,\nlike in baking!" },
+        23: { topDescription: "Light snow shower", icon: "Assets/Images/snow.png", bottomDescription: "Lightly sprinkled,\nlike in baking!" },
+        24: { topDescription: "Light snow", icon: "Assets/Images/snow.png.png", bottomDescription: "Lightly sprinkled,\nlike in baking!" },
         25: { topDescription: "Heavy snow shower", icon: "Assets/Images/snow.png", bottomDescription: "It's snowman weather!" },
         26: { topDescription: "Heavy snow shower", icon: "Assets/Images/snow.png", bottomDescription: "It's snowman weather!" },
         27: { topDescription: "Heavy snow", icon: "Assets/Images/snow.png", bottomDescription: "It's snowman weather!" },
@@ -434,26 +495,54 @@ function switchBackgroundColour(temperature) {
     } else {
         document.getElementById('primarybackground').className = 'TemperatureBackgroundColourOK';
     }
+
+    switchTextColour();
+}
+
+/**
+ * Text colour change
+ * changes the text colour depending on the temperature at the location
+ * this is done to improve contrast between the text and the background
+ */
+function switchTextColour() {
+    const backgroundColour = document.getElementById('primarybackground').className;
+
+    // add the "text-white" class, when the background is dark blue
+    if (backgroundColour === 'TemperatureBackgroundColourColdest') {
+        document.getElementById('placeNameLabel').classList.add("text-white");
+        document.getElementById('GPSLabel').classList.add("text-white");
+        document.getElementById('GPSLocation').classList.add("text-white");
+        document.getElementById('TemperatureDisplay').classList.add("text-white");
+        document.getElementById('UVIndexDisplay').classList.add("text-white");
+    } else {
+        // remove the "text-white" class, when the background is not dark blue
+        document.getElementById('placeNameLabel').classList.remove("text-white");
+        document.getElementById('GPSLabel').classList.remove("text-white");
+        document.getElementById('GPSLocation').classList.remove("text-white");
+        document.getElementById('TemperatureDisplay').classList.remove("text-white");
+        document.getElementById('UVIndexDisplay').classList.remove("text-white");
+    }
 }
 
 /**
  * Loading Screen
  * displays a loading screen while geo-location is being fetched
  * takes 1-8 seconds...
+ * Currently redundant, please consider deleting
  */
-function loadingScreen() {
-    const iconDisplayArea = document.getElementById('IconDisplayArea');
-    iconDisplayArea.innerHTML = `
-        <div class="IconDisplayArea bg-white p-6 rounded-lg shadow-lg">
-            <h2>Loading...</h2>
-            <div class="loadingbaby">
-                <img src="Assets/Images/loadingbaby.jpg" alt="Loading...">
-            </div>
-            <div class="WeatherDescription"></div>
-            <img class="WeatherIcon" src="" alt="Weather Icon">
-        </div>
-    `;
-}
+// function loadingScreen() {
+//     const iconDisplayArea = document.getElementById('IconDisplayArea');
+//     iconDisplayArea.innerHTML = `
+//         <div class="IconDisplayArea bg-white p-6 rounded-lg shadow-lg">
+//             <h2>Loading...</h2>
+//             <div class="loadingbaby">
+//                 <img src="Assets/Images/loadingbaby.jpg" alt="Loading...">
+//             </div>
+//             <div class="WeatherDescription"></div>
+//             <img class="WeatherIcon" src="" alt="Weather Icon">
+//         </div>
+//     `;
+// }
 
 /**
  * Event listener
@@ -473,14 +562,13 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let button of buttons) {
         button.addEventListener("click", function () {
             if (this.getAttribute("id") === "toggleButton") {
-               // do nothing
+                // do nothing
             } else if (this.getAttribute("id") === "submitButton") {
                 // get the placename from the text box
                 let userAnswer = (document.getElementById("placeName").value).toString();
                 // and get the weather data for that placename
                 parseSearchInput(placeName.value);
             } else {
-                // TODO: display this error message to the user
                 ErrorEvent("Unknown place submitted");
             }
         });
@@ -494,11 +582,14 @@ document.addEventListener("DOMContentLoaded", function () {
 document.getElementById('toggleButton').addEventListener('click', function () {
     // TODO: when toggling back to GPS, if the gps previously failed
     // (perhaps user refused), we need to try again, otherwise use existing data to save load time
-    var searchbar = document.getElementById('searchbar');
-    var gpsLocation = document.getElementById('GPSlocation');
+    let searchbar = document.getElementById('searchbar');
+    let searchError = document.getElementById('SearchErrorText');
+    let gpsLocation = document.getElementById('GPSlocation');
     if (searchbar.style.display === 'none') {
         searchbar.style.display = 'flex';
         gpsLocation.style.display = 'none';
+        // hide error message header, if it was displayed
+        searchError.style.display = 'none';
     } else {
         searchbar.style.display = 'none';
         gpsLocation.style.display = 'flex';

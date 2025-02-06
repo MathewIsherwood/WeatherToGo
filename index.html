@@ -18,17 +18,17 @@
                 <button id="toggleButton" class="mb-4 p-2 bg-blue-500 text-white rounded">Toggle Search/GPS</button>                
                 <div id="searchbar" class="flex items-center flex-col justify-center">
                     <div id="placeForm">
-                        <label for="placeName">Location:</label>
+                        <label id="placeNameLabel" for="placeName">Location:</label>
                         <input type="text" id="placeName" name="placeName" required>
                         <button id="submitButton" data-type="button">Submit</button>
                     </div>
                 </div>
                 <div id="GPSlocation" class="flex items-center flex-col justify-center">
-                    <h1 class="text-2xl font-bold mb-4 text-center">GPS Location: <span id="GPSLocation"><br />Processing</span></h1>
+                    <h1 class="text-2xl font-bold mb-4 text-center"><span id="GPSLabel">GPS Location:</span><br><span id="GPSLocation">Processing</span></h1>
                 </div>
                 <div class="IconDisplayArea bg-white p-6 rounded-lg shadow-lg">
                     <!-- Card content goes here -->
-                    <h2 id="TopTextArea" class="MainAreaTextTop text-2xl font-bold mb-4 text-center"><br />Accessing<br /> Location<br /> Data</h2>
+                    <h2 id="TopTextArea" class="MainAreaTextTop text-2xl font-bold mb-4 text-center"><br>Accessing<br> Location<br> Data</h2>
                     <div class="text-center">
                         <!-- <i id="MainIcon" class="IconChoice text-6xl text-yellow-500"></i> --->
                         <img id="MainIcon" class="IconChoice" src="">
