@@ -257,5 +257,6 @@ https://jsvalidator.com/
 - Entering a location abroad shows the weather for the device's current time, and not converted to the current time of the searched location.
 - Deployed site cannot use reverse geolocation, or city name search API services. (This is because those API's only accept HTTP requests, and not HTTPS requests. Modern browsers block non-secure requests)
 - Met Office API key has 360 uses for its free version. These uses can run out very quickly!
+- Deployed site: Error Handling is linked to the fetch requests, modern browsers block requests that can't use HTTPS, and thus until the location search and reverse geolocation API's are switched to HTTPS google API the error handling doesn't function.
 
 [Back to Contents](#contents)
