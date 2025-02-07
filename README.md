@@ -118,11 +118,11 @@ WeatherToGo/
 - **Description**: The home page displays the current weather conditions, including temperature, weather icons, and a brief weather description. It also features a location input/search bar and a toggle button to switch between GPS-based location tracking and manual location search.
 - **User Value**: Provides users with real-time weather updates and allows them to easily switch between different locations.
 
-![Screen Shot 2025-02-06 at 09 58 06](https://github.com/user-attachments/assets/4378c8ed-2be3-4074-8596-20cd06d40622)
+<img src="https://github.com/user-attachments/assets/4378c8ed-2be3-4074-8596-20cd06d40622" alt="" width="200px">
 
-![Screen Shot 2025-02-06 at 10 06 44](https://github.com/user-attachments/assets/f344192c-d983-4121-903b-5ddb804b738f)
+<img src="https://github.com/user-attachments/assets/f344192c-d983-4121-903b-5ddb804b738f" alt="" width="200px">
 
-![Screen Shot 2025-02-06 at 10 07 18](https://github.com/user-attachments/assets/cd2178e7-3d93-4f45-934e-0923ead39ee4)
+<img src="https://github.com/user-attachments/assets/cd2178e7-3d93-4f45-934e-0923ead39ee4" alt="" width="200px">
 
 ### 5 Day Forecast Page
 - **Description**: This section provides a detailed weather forecast for the next five days, including daily high and low temperatures, weather icons, and brief weather descriptions.
@@ -221,20 +221,20 @@ This project is licensed under the MIT License.
 
 ## Manual Tests
 ### - User refuses GPS location
-![Screen Shot 2025-02-06 at 10 09 11](https://github.com/user-attachments/assets/22a25be4-ed20-47c1-9aff-975da52b36d1)
+<img src="https://github.com/user-attachments/assets/22a25be4-ed20-47c1-9aff-975da52b36d1" alt="" width="200px">
    Location defaults to London, and user can click switch box to enter an location manually.
 
 ### - GPS Location takes too long to load
-![Screen Shot 2025-02-06 at 10 24 28](https://github.com/user-attachments/assets/20c62cd2-07ec-4403-a6a3-bcfda71f9df3)
+<img src="https://github.com/user-attachments/assets/20c62cd2-07ec-4403-a6a3-bcfda71f9df3" alt="" width="200px">
    Error message is displayed that Geo Location services failed, (timed out) and defaults to London.
    
 ### - Met Office API is down
-![Screen Shot 2025-02-06 at 09 48 23](https://github.com/user-attachments/assets/d3718625-d9a9-4ff5-8594-5515dce0a5ac)
+<img src="https://github.com/user-attachments/assets/d3718625-d9a9-4ff5-8594-5515dce0a5ac" alt="" width="200px">
    Error message is displayed to user that weather data is unavailable, and to try again.
    *this specific screenshot shows the GPS timed out, and that the met office api is down*
    
 ### - User searches for a non-existent town name (in UK)
-![Screen Shot 2025-02-06 at 10 07 54](https://github.com/user-attachments/assets/f396dcab-e3b8-484f-8ad3-1582d5568e7b)
+<img src="https://github.com/user-attachments/assets/f396dcab-e3b8-484f-8ad3-1582d5568e7b" alt="" width="200px">
    User is informed that the location name couldn't be found, and to try another location.
 
 [Back to Contents](#contents)
@@ -257,5 +257,6 @@ https://jsvalidator.com/
 - Entering a location abroad shows the weather for the device's current time, and not converted to the current time of the searched location.
 - Deployed site cannot use reverse geolocation, or city name search API services. (This is because those API's only accept HTTP requests, and not HTTPS requests. Modern browsers block non-secure requests)
 - Met Office API key has 360 uses for its free version. These uses can run out very quickly!
+- Deployed site: Error Handling is linked to the fetch requests, modern browsers block requests that can't use HTTPS, and thus until the location search and reverse geolocation API's are switched to HTTPS google API the error handling doesn't function.
 
 [Back to Contents](#contents)
