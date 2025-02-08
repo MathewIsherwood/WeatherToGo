@@ -9,7 +9,6 @@ function getMetofficeAPIKey() {
         `eyJ4NXQjUzI1NiI6Ik5XVTVZakUxTkRjeVl6a3hZbUl4TkdSaFpqSmpOV1l6T1dGaE9XWXpNMk0yTWpRek5USm1OVEE0TXpOaU9EaG1NVFJqWVdNellXUm1ZalUyTTJJeVpBPT0iLCJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ==.eyJzdWIiOiJyYWxmY3Jhd3NoYXc3NEBnbWFpbC5jb21AY2FyYm9uLnN1cGVyIiwiYXBwbGljYXRpb24iOnsib3duZXIiOiJyYWxmY3Jhd3NoYXc3NEBnbWFpbC5jb20iLCJ0aWVyUXVvdGFUeXBlIjpudWxsLCJ0aWVyIjoiVW5saW1pdGVkIiwibmFtZSI6InNpdGVfc3BlY2lmaWMtNjQyYWQ1NGEtODk3Yy00NzAwLThlMWUtZmVhNDkwMjk2ODhkIiwiaWQiOjkzOTIsInV1aWQiOiJiOTAyZTE0OC1hNzg3LTQ2YmQtOTYwMC1iYWRiNGQxN2M2MWYifSwiaXNzIjoiaHR0cHM6XC9cL2FwaS1tYW5hZ2VyLmFwaS1tYW5hZ2VtZW50Lm1ldG9mZmljZS5jbG91ZDo0NDNcL29hdXRoMlwvdG9rZW4iLCJ0aWVySW5mbyI6eyJ3ZGhfc2l0ZV9zcGVjaWZpY19mcmVlIjp7InRpZXJRdW90YVR5cGUiOiJyZXF1ZXN0Q291bnQiLCJncmFwaFFMTWF4Q29tcGxleGl0eSI6MCwiZ3JhcGhRTE1heERlcHRoIjowLCJzdG9wT25RdW90YVJlYWNoIjp0cnVlLCJzcGlrZUFycmVzdExpbWl0IjowLCJzcGlrZUFycmVzdFVuaXQiOiJzZWMifX0sImtleXR5cGUiOiJQUk9EVUNUSU9OIiwic3Vic2NyaWJlZEFQSXMiOlt7InN1YnNjcmliZXJUZW5hbnREb21haW4iOiJjYXJib24uc3VwZXIiLCJuYW1lIjoiU2l0ZVNwZWNpZmljRm9yZWNhc3QiLCJjb250ZXh0IjoiXC9zaXRlc3BlY2lmaWNcL3YwIiwicHVibGlzaGVyIjoiSmFndWFyX0NJIiwidmVyc2lvbiI6InYwIiwic3Vic2NyaXB0aW9uVGllciI6IndkaF9zaXRlX3NwZWNpZmljX2ZyZWUifV0sInRva2VuX3R5cGUiOiJhcGlLZXkiLCJpYXQiOjE3Mzg4MzUwMDAsImp0aSI6IjVkNGY3ODIyLTdiM2YtNDM1ZS1iYmNmLWZhOTQ2MTg3MTNmNyJ9.CYQI5OUl1nwBwioROfmmlAM0r0swciDa9SrSzPQZq9I-gSCXSlBXmqJr__DLHxNWOx-xWJpkwnssMSUq1L_L6L4n24KxfVl53MYws9X3o_yM9C3Ll9GvIMxSJgXD4PqQubxZreh6oJMGTnSV9hFWWsxPw7siWbqQgIkFFfkJpNvOnTc2unFMf5lJCTrFplqD6azOGWoq5dmwRS9tUc-waXbMN9ZfPsemhwK5Ok080w1Bl6DvsvnmaAc0GTQcmZg9-gP3nnBig6jmTgs4lP424A-GBb3i0XzUtxl_a_aWWpp53FNnLP1Nny_RA-Itv4YMdUGpVQCkoPKkhAWeeU71Og==`,
         ];
        const randomValue = values[Math.floor(Math.random() * values.length)];
-       console.log(randomValue);
        return randomValue;
 }   
 
@@ -55,7 +54,6 @@ function usePosition(position) {
     // show button to toggle between search and GPS, now that gps api has succeeded
     toggleSearchGPSButton();
 
-    console.log("Latitude: " + latitude + " Longitude: " + longitude);
     getTownName(latitude, longitude);
 
     //WARNING/IMPORTANT: limited API uses, un-comment when ready to deploy/use
@@ -114,7 +112,6 @@ function getTownName(lat, long) {
         .then(response => response.json())
         .then(data => {
             // Process town name here
-            console.log(data);
             if(data.features[0].properties.city == undefined){
                 setGPSLocation("Couldn't find\nlocation name");
             } else {
@@ -243,7 +240,6 @@ function getLongLat(placeName, weatherTime) {
                     lat = parseFloat(data.result[i].latitude).toFixed(4);
                     let longLatObj = { "long": long, "lat": lat };
 
-                    console.log(longLatObj);
                     setWeather(weatherTime, longLatObj);
 
                     break;
@@ -278,7 +274,6 @@ function setWeather(weatherTime, longlat) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             // Process the weather data here
             if (weatherTime === "hourly") {
                 const currentWeatherHour = getOneWeatherHour(getCurrentHourISO(), getAllWeatherTimes(data));
@@ -451,7 +446,6 @@ function setFiveDayWeatherDescriptionAndIcon(weatherDays) {
  * for that weather code (a lookup table)
  */
 function getWeatherDescriptionAndIcon(weatherCode) {
-    console.log("weatherCode" + weatherCode);
     const weatherMap = {
         0: { topDescription: "Clear night", icon: "Assets/Images/clear_moon_night.png", bottomDescription: "Great starwatching weather!" },
         1: { topDescription: "Sunny", icon: "Assets/Images/sunny.png", bottomDescription: "Sunshine and smiles!" },
