@@ -57,7 +57,7 @@ function usePosition(position) {
     getTownName(latitude, longitude);
 
     //WARNING/IMPORTANT: limited API uses, un-comment when ready to deploy/use
-    //updateWeatherHour("London", { "long": longitude, "lat": latitude });
+    updateWeatherHour("London", { "long": longitude, "lat": latitude });
 }
 
 /**
@@ -245,9 +245,18 @@ function getLongLat(placeName, weatherTime) {
                 // gets the result type property (which can be town, city, suburb, postcode (for village), etc)
                 // checks if an object property exists for the result type value.
                 // if it does, we can then compare the property value to the place name. (e.g. data.features[i].properties.town: "keynsham")
-                const resultType = data.features[i].properties.resultType;
+                const resultType = data.features[i].properties.result_type;
                 let resultValue = "";
-                if (Object.hasOwn(data.features[i].properties, resultType)) {
+
+                // If statement here does specific logic for postcode, as it doesn't store the
+                // location name, but city often does.
+
+                // TODO: Ultimately, we need another box for the user to select a county
+                // or even a map to select a location, as we can't rely on the first result
+                // being the one the user wants.
+                if (resultType === "postcode") {
+                    resultValue = data.features[i].properties.city;
+                } else if (Object.hasOwn(data.features[i].properties, resultType)) {
                     resultValue = data.features[i].properties[resultType];
                 }
 
@@ -271,6 +280,7 @@ function getLongLat(placeName, weatherTime) {
         })
         .catch(error => {
             console.error('Error:', error);
+            topTextAreaError("Search error.\n\nPlease try another.");
         });
 }
 
