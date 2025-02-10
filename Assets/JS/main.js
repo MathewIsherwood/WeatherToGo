@@ -655,7 +655,9 @@ function setUVIndexTextArea(weatherHour) {
     // get the UV index from the weather object
     if (uvIndex < 0) {
         document.getElementById('iconbackground').className = 'bg-blue-900';
-    } else {
+    }  // If the weather station says the UV index is 0, set the background to night...
+    
+    else {
         document.getElementById('iconbackground').className = 'bg-blue-500';
-    }
+    }  // ... and if the weather station reports a UV index above 0, set the background to day
 }
