@@ -647,3 +647,15 @@ getCurrentLocation();
 // Initialize with GPS location visible and search bar hidden
 document.getElementById('searchbar').style.display = 'none';
 document.getElementById('GPSlocation').style.display = 'flex';
+
+// Set the icon background colour to night if the UV index drops below 1, and to day should it do the opposite.
+// This is a bit of a bodged solution and I would like to try and sync it to change depending on sunrise and sunset times.
+function setUVIndexTextArea(weatherHour) {
+    let uvIndex = "";
+    // get the UV index from the weather object
+    if (uvIndex < 0) {
+        document.getElementById('iconbackground').className = 'bg-blue-900';
+    } else {
+        document.getElementById('iconbackground').className = 'bg-blue-500';
+    }
+}
