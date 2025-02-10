@@ -650,14 +650,14 @@ document.getElementById('GPSlocation').style.display = 'flex';
 
 // Set the icon background colour to night if the UV index drops below 1, and to day should it do the opposite.
 // This is a bit of a bodged solution and I would like to try and sync it to change depending on sunrise and sunset times.
-function setUVIndexTextArea(weatherHour) {
+function setIconBackgroundColour(weatherHour) {
     let uvIndex = "";
     // get the UV index from the weather object
     if (uvIndex < 0) {
-        document.getElementById('iconbackground').className = 'bg-blue-900';
+        document.getElementById('iconbackground').innerText.className = 'bg-blue-900';
     }  // If the weather station says the UV index is 0, set the background to night...
     
     else {
-        document.getElementById('iconbackground').className = 'bg-blue-500';
+        document.getElementById('iconbackground').innerText.className = 'bg-blue-500';
     }  // ... and if the weather station reports a UV index above 0, set the background to day
 }
